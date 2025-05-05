@@ -4,6 +4,29 @@ sudo nmap -sS -p 1-1024 192.168.56.20
 sudo nmap -sA -p 1-1024 192.168.56.20
 sudo nmap -sN -p 1-1024 192.168.56.20
 sudo nmap -sN -p 1-1024 192.168.56.20
+7.1	Learning Objectives:
+•	Learn how TCP/IP works in relation to port scanning
+•	Use Nmap to probe and analyze remote systems
+•	Understand stealth scan techniques and firewall evasion
+•	Identify open, closed, and filtered ports on a target system
+
+7.1	Requirement:
+•	Kali Linux (with Nmap pre-installed)
+•	Metasploitable VM as the target
+•	Both VMs connected on the same virtual network
+•	Basic terminal usage knowledge
+
+7.2	Related Theory:
+Port scanning is the process of sending specially crafted packets to a target system to discover which ports are open, closed, or filtered. It's a fundamental step in network reconnaissance and helps security professionals identify services running on a host, potential vulnerabilities, and firewall behavior.
+Nmap Scan Types:
+Scan Type	Flag	Description
+PING Scan	-sn	Checks if host is up without scanning ports
+SYN Scan	-sS	Half-open scan (stealthy, fast)
+AC
+K Scan	-sA	Used to map firewall rules
+NULL Scan	-sN	Sends packet with no TCP flags
+XMAS Scan	-sX	Sends packet with FIN, PSH, URG flags (like a "Christmas tree")
+
 1. What is port scanning and why is it important in cybersecurity?
 Port scanning is the process of sending specially crafted packets to a target system to discover which ports are open, closed, or filtered. It's a fundamental step in network reconnaissance and helps security professionals identify services running on a host, potential vulnerabilities, and firewall behavior.
 2. Explain the working of the PING Scan in Nmap.

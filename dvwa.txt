@@ -311,3 +311,42 @@ Answer: Steganography is useful in cybersecurity as it allows secure communicati
 
 What are the risks of using Steganography in a digital forensics context?
 Answer: In digital forensics, steganography poses a challenge because it can be used to hide malicious or illegal content. Detecting and analyzing hidden messages in digital files can be complex and time-consuming, making it difficult to uncover evidence in criminal investigations or data breaches.
+
+
+exp 1 
+1.WhoCalled (often found as WhoCalledMe or similar websites) is an OSINT (Open Source Intelligence) tool that allows users to identify unknown phone numbers—particularly those suspected to be spam, telemarketers, scammers, or fraud callers.
+2. Weboproxy is a web-based proxy service that can be used to anonymously browse the internet. It's often listed under OSINT tools because it helps users access websites without revealing their IP address—useful in certain reconnaissance or information-gathering scenarios where staying anonymous is important.
+Key Features of Weboproxy:
+Anonymity: Masks your IP while browsing.
+
+Bypass Restrictions: Can be used to access geo-blocked or restricted websites.
+
+No Installation: Runs entirely in the browser.
+
+Simple Interface: Just enter the URL you want to visit.
+Link to Use:
+👉 https://www.weboproxy.com
+3. Anonymous Instagram Profile Viewer Tools
+Dumpor (if available)
+
+Website: https://dumpor.com
+
+✅ Browse anonymously by searching usernames, tags, or locations.
+
+4. Forensic OSINT (Open-Source Intelligence in Forensics)
+Forensic OSINT refers to the use of publicly available data and OSINT tools to support digital forensic investigations. It's a combination of cyber forensics and open-source intelligence gathering, often used by law enforcement, ethical hackers, and investigators to gather legally admissible evidence from open sources.
+
+✅ Purpose of Forensic OSINT
+To gather evidence from online sources (social media, forums, websites, domains, etc.)
+
+To track digital footprints of suspects or victims
+
+To enrich forensic investigations with context from public data
+
+To correlate OSINT data with logs, metadata, and digital artefacts
+website : https://haveibeenpwned.com
+1.7 Conclusion:
+This lab introduced the OSINT framework and demonstrated its application in collecting 
+publicly available data. By using the framework, we were able to perform advanced searches, 
+gather actionable intelligence, and gain insights into its relevance for cybersecurity and 
+investigative practices

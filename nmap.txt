@@ -1,0 +1,332 @@
+EXP 1 
+AIM: Download, install nmap and use it with different options to scan open ports,
+perform OS fingerprinting, ping scan, tcp port scan, udp port scan, etc
+LAB OUTCOME : The lab showed how to use Nmap for scanning open ports, OS fingerprinting, and service detection, aiding in network security analysis.
+Algorithm/ Commands : 1. Command for open port : sudo nmap -T4 -F 192.168.1.5
+                          
+2. Command for OS fingerprinting: sudo nmap -O 192.168.1.5
+3. Command for ping scan: sudo nmap -sP 192.168.1.5
+4. Command for TCP port scan: 1.  nmap -sT 192.168.1 (TCP Connect scan ,Used when you don’t have root privileges,Easier to detect by firewalls or logging systems.
+Slower and less stealthy.)
+                              2.sudo nmap -sS 192.168.1.5 (TCP SYN Scan (Stealth Scan),Requires root privileges (sudo) because it uses raw packets.)
+5. Command for UDP port scan: 1. sudo nmap -sU -T4 -F -Pn 192.168.1.5
+ -T4 Faster execution (good balance of speed and accuracy)
+ -F	Fast scan (scans only top 100 most common ports)
+ 5. Command for  Aggressive Scan (All-in-One):sudo nmap -A -T4 192.168.1.5
+-A: Enables OS detection, version detection, script scanning, and traceroute
+-T4: Fast execution
+Best for a full profile of the target (used in pentesting)
+6.  Command to  Save Output to File : sudo nmap -A 192.168.1.5 -oN scan_output.txt
+SOFTWARE USED : Nmap , Kali Linux
+conclusion : Nmap is a powerful tool for network scanning and security analysis.It offers a wide range of options for scanning open ports, OS fingerprinting, and service detection.
+
+EXP 2 
+AIM: Study the use of network reconnaissance tools like WHOIS, dig, traceroute,
+nslookup to gather information about networks and domain registrars.
+LAB OUTCOME : The lab demonstrated the use of WHOIS, dig, traceroute, and nslookup to gather information about networks and domain registrars, aiding in network security analysis. It also showed how to use these tools to identify potential security risks and vulnerabilities. 
+ ALGORITHMS / COMMANDS :  1. Command to get domain information: whois google.com (kali n for windpws same )
+ for windows download whois n then extract the zip file and after that in type windows+R n in the box type cmd n enter open command prompt and go to the directory where whois is downloaded n in that type whois google.com
+ 2. Command for dig ( domain information groper) : dig google.com (kali) , dig google.com A , dig google.com MX (for mail server)
+ 3. Command for traceroute : traceroute google.com (kali) n for windows comaand is :tracert google.com
+ 4. Command for nslookup : nslookup google.com (kali n windows)
+ SOFTWARE USED : WHOIS, dig, traceroute, nslookup, Kali Linux, Windows
+ RELATED THEORY : Network reconnaissance tools are used to gather information about networks and domain registrars. They can be used to identify potential security risks and vulnerabilities. WHOIS, dig, traceroute, and nslookup are some of the most commonly used network reconnaissance tools. 
+  WHOIS is used to get information about domain registrars, dig is a command line tool  used to get information about DNS servers, traceroute is used to get information about network paths, and nslookup is used to get information about DNS records. 
+  CONCLUSION : Network reconnaissance tools are essential for network security analysis. They can be used to gather information about networks and domain registrars, identify potential security risks and vulnerabilities, and aid in penetration testing.
+  
+
+  EXP 3 
+  Aim: Study of packet sniffer tools Wireshark:- a. Observer performance inpromiscuous as well as non-promiscuous mode. b. Show the packets can be traced
+based on different filters.
+LAB OUTCOME: The lab demonstrated the use of Wireshark to capture and analyze network traffic in both promiscuous and non-promiscuous modes. It also showed how to use filters to  trace packets based on different criteria. 
+COMMANDS : 
+ 1. IP address filter: ip.addr == 192.168.1.102
+ 2.Ip & port Filter: ip.addr==192.168.1.102 and tcp.port==80
+ 3.Packet length filter: frame.len > 102
+ 4. TCP Filter: tcp
+ for sniffing attack go to vulnweb website and signup n then start wireshark n then in filters enter : http.request.method this will filter the packets n click on any one      
+ Comclusion : The experiment demonstrated how Wireshark captures network traffic in both promiscuous and non-promiscuous modes. It also showed how filters help trace specific packets efficiently.
+ 
+ EXP 4
+ AIM : Breaking the Mono-alphabetic Substitution Cipher using Frequency analysis
+method.
+LAB OUTCOME : The lab demonstrated the use of frequency analysis to break a mono-alphabetic substitution cipher. It showed how to use the frequency of letters in the ciphertext to determine the substitution for each letter. 
+ALGORITHMS / COMMANDS : 1. Frequency analysis: Count the frequency of each letter in the ciphertext and compare it with the frequency of letters in the English language.
+ Use the frequency of letters  to determine the substitution for each letter : In English, the most frequent letters are E, T, A, O, I, N, S, R, H
+ Look for Common Words
+● In English, common words like THE, AND, and OF are likely to appear.
+● Look at the ciphertext for patterns that might match these words. For
+example:
+● The first word is ZOL.
+○ Guess Z → T, O → H, L → E (making ZOL → THE). 
+eg 1 : ZOL XLWV YLD ZGG ZOL NVVW GSV XLF
+
+ans :  THE QUICK BEE THE QUICK BROWN FOX
+ eg 2 : LMCOTKOMSFKSWIMCQTGAUECTGKTGWFEZEWISKKTWG
+VGWLLSDDOMCOTMCQSTOTGNSOWNCVSNRGCNSICN
+WFKGWNCGDTQSKWEMCKSQSEDTQSYLMWMCKUEWFA
+MOOMSKCNSCNWFGOWIKOFYRCGYWIGCOFECDOCDSGO
+OWOMSYSOSJOTWGWIJETNSLMTJMTMCQSYWGSCGYLM
+COTKOMSESKFDOOMSESTKGWJETNSOWYSOSJO
+ ans : THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG
+
+ conclusion : This experiment demonstrated how frequency analysis can break a
+mono-alphabetic substitution cipher:
+● By counting letter frequencies and comparing with standard English letter distributions.
+● By mapping frequent ciphertext letters to probable English letters.
+● By recognizing common word patterns (like "THE", "AND", "IS").
+● By refining substitutions iteratively to reveal the original message
+
+
+ EXP 5 
+ AIM : Design and Implement a product cipher using Substitution ciphers
+ LAB OUTCOME : The lab demonstrated the design and implementation of a product cipher using substitution ciphers for enhanced cryptographic security. 
+ SOFTWARE USED : Python, Substitution cipher, Product cipher 
+ Program : 
+ # Caesar Cipher Encryption
+def caesar_encrypt(text, shift):
+    result = ""
+    for ch in text.lower():
+        if ch.isalpha():
+            result += chr((ord(ch) - ord('a') + shift) % 26 + ord('a'))
+        else:
+            result += ch
+    return result
+
+# Caesar Cipher Decryption
+def caesar_decrypt(text, shift):
+    return caesar_encrypt(text, -shift)
+
+# Monoalphabetic substitution (encryption)
+def substitute_encrypt(text):
+    key = {
+        'a':'m','b':'n','c':'b','d':'v','e':'c','f':'x','g':'z','h':'l','i':'k','j':'j',
+        'k':'h','l':'g','m':'f','n':'d','o':'s','p':'a','q':'p','r':'o','s':'i','t':'u',
+        'u':'y','v':'t','w':'r','x':'e','y':'w','z':'q'
+    }
+    return ''.join(key[ch] if ch.isalpha() else ch for ch in text)
+
+# Monoalphabetic substitution (decryption)
+def substitute_decrypt(text):
+    reverse_key = {
+        'm':'a','n':'b','b':'c','v':'d','c':'e','x':'f','z':'g','l':'h','k':'i','j':'j',
+        'h':'k','g':'l','f':'m','d':'n','s':'o','a':'p','p':'q','o':'r','i':'s','u':'t',
+        'y':'u','t':'v','r':'w','e':'x','w':'y','q':'z'
+    }
+    return ''.join(reverse_key[ch] if ch.isalpha() else ch for ch in text)
+
+# Main
+plain = input("Enter text: ")
+shift = int(input("Enter Caesar shift: "))
+
+# Encryption
+step1 = caesar_encrypt(plain, shift)
+final_cipher = substitute_encrypt(step1)
+
+# Decryption
+step2 = substitute_decrypt(final_cipher)
+original = caesar_decrypt(step2, shift)
+
+# Output
+print("\n--- Encryption ---")
+print("Caesar Output     :", step1)
+print("Final Cipher Text :", final_cipher)
+
+print("\n--- Decryption ---")
+print("After Substitution:", step2)
+print("Original Text     :", original)
+
+# Main
+plain = input("Enter the plain text: ")
+shift = int(input("Enter Caesar shift: "))
+
+step1 = caesar(plain, shift)
+final = substitute(step1)
+
+print("\nCaesar Output:", step1)
+print("Final product Cipher :", final)
+RELATED THEORY 
+A Product Cipher combines two or more encryption techniques to enhance security. In this experiment, we use:
+
+Caesar Cipher – A simple shift cipher where each letter is shifted by a fixed number (e.g., A → D if shift = 3).
+
+Monoalphabetic Substitution Cipher – Each letter is replaced with a unique, fixed substitute based on a shuffled alphabet.
+
+By applying both ciphers one after the other, we create a stronger encryption than using either alone.
+CONCLUSION : We have successfully implemented a product cipher using  a combination of two substitution ciphers ( ceasar cipher and monoalphabetic cipher), demonstrating the power of combining multiple encryption techniques for enhanced security. 
+
+EXP 6 
+AIM : Encrypt long messages using various modes of operation using AES or DES
+lab outcome : ● To demonstrate the encryption and decryption of long messages using AES or DES.
+● To explore the characteristics and applications of various modes of operation.
+AES and DES
+AES (Advanced Encryption Standard) and DES (Data Encryption Standard) are symmetric key 
+cryptography algorithms. AES uses block sizes of 128 bits and supports key sizes of 128, 192, and 
+256 bits. DES operates on 64-bit blocks with a 56-bit key.
+1. ECB (Electronic Codebook): Each block is encrypted independently.
+○ Pros: Simple and fast.
+○ Cons: Vulnerable to pattern leakage.
+2. CBC (Cipher Block Chaining): Each block is XORed with the previous ciphertext 
+block.
+○ Pros: Provides better security than ECB.
+○ Cons: Requires an initialization vector (IV).
+3. CFB (Cipher Feedback): Converts the block cipher into a stream cipher.
+○ Pros: Suitable for encrypting data streams.
+○ Cons: Error propagation.
+4. OFB (Output Feedback): Similar to CFB but without error propagation.
+○ Pros: Avoids error propagation.
+5. CTR (Counter Mode): Converts the block cipher into a stream cipher using a counter.
+○ Pros: High performance, parallelizable.
+Program : from Crypto.Cipher import AES, DES
+from Crypto.Util.Padding import pad, unpad
+from Crypto.Util import Counter
+from Crypto.Random import get_random_bytes
+
+BLOCK_SIZES = {
+    'AES': 16,
+    'DES': 8
+}
+
+def get_cipher(algorithm, mode, key, iv=None, ctr=None):
+    if algorithm == 'AES':
+        if mode == 'ECB':
+            return AES.new(key, AES.MODE_ECB)
+        elif mode == 'CBC':
+            return AES.new(key, AES.MODE_CBC, iv)
+        elif mode == 'CFB':
+            return AES.new(key, AES.MODE_CFB, iv)
+        elif mode == 'OFB':
+            return AES.new(key, AES.MODE_OFB, iv)
+        elif mode == 'CTR':
+            return AES.new(key, AES.MODE_CTR, counter=ctr)
+
+    elif algorithm == 'DES':
+        if mode == 'ECB':
+            return DES.new(key, DES.MODE_ECB)
+        elif mode == 'CBC':
+            return DES.new(key, DES.MODE_CBC, iv)
+        elif mode == 'CFB':
+            return DES.new(key, DES.MODE_CFB, iv)
+        elif mode == 'OFB':
+            return DES.new(key, DES.MODE_OFB, iv)
+        elif mode == 'CTR':
+            return DES.new(key, DES.MODE_CTR, counter=ctr)
+
+def encrypt_decrypt(algorithm, mode, message, user_key):
+    bs = BLOCK_SIZES[algorithm]
+    key = user_key.ljust(bs)[:bs].encode()
+
+    iv = get_random_bytes(bs)
+    ctr = Counter.new(bs * 8)
+
+    cipher = get_cipher(algorithm, mode, key, iv, ctr)
+    
+    if mode == 'CTR':
+        ciphertext = cipher.encrypt(message.encode())
+        cipher_dec = get_cipher(algorithm, mode, key, None, Counter.new(bs * 8))
+        decrypted = cipher_dec.decrypt(ciphertext)
+    elif mode == 'ECB':
+        ciphertext = cipher.encrypt(pad(message.encode(), bs))
+        cipher_dec = get_cipher(algorithm, mode, key)
+        decrypted = unpad(cipher_dec.decrypt(ciphertext), bs)
+    else:
+        ciphertext = cipher.encrypt(pad(message.encode(), bs))
+        cipher_dec = get_cipher(algorithm, mode, key, iv)
+        decrypted = unpad(cipher_dec.decrypt(ciphertext), bs)
+
+    return ciphertext, decrypted.decode()
+
+# --- MAIN ---
+if __name__ == "__main__":
+    message = input("Enter message to encrypt: ")
+    algo = input("Choose algorithm (AES or DES): ").upper()
+    mode = input("Choose mode (ECB, CBC, CFB, OFB, CTR): ").upper()
+    key_input = input(f"Enter key for {algo} (Max {BLOCK_SIZES[algo]} chars): ")
+
+    cipher_text, plain_text = encrypt_decrypt(algo, mode, message, key_input)
+
+    print("\n--- Results ---")
+    print("Encrypted (hex):", cipher_text.hex())
+    print("Decrypted      :", plain_text)
+    IN TERMINAL TYPE : pip install pycryptodome
+
+  Requirement:-
+● Python programming language (or equivalent).
+● Libraries such as pycryptodome for AES/DES implementation.
+● A plaintext message for encryption and decryption.
+● Keys and initialization vectors (IV) for the chosen cryptographic algorithm.
+Conclusion : In this experiment, we successfully implemented AES and DES encryption to secure 
+long messages using various modes of operation.
+This experiment highlights the significance of symmetric key encryption in securing data transmission and storage .
+
+EXP 9
+AIM : The objective of this experiment is to provide hands-on experience in using advanced
+cybersecurity tools for web application security testing and data hiding techniques.
+● Burp Suite Tool: To conduct comprehensive web application security testing, including
+interception, scanning, and exploitation of vulnerabilities.
+● Steghide Tool: To learn and apply steganographic techniques for securely hiding and
+extracting data within digital media files.
+LAB OUTCOME :  Through this exp we gain practical skills in identifying and exploiting web application vulnerabilities using Burp Suite and in applying steganographic methods to hide and retrieve data within media files using Steghide.
+requirements : Burp Suite (available in Kali Linux)
+● Steghide tool (available in Linux/Windows)
+● Windows/Linux machine for execution
+● Sample image/audio files for steganograph
+program : 
+1.	sudo apt update
+2.	sudo apt install steghide –y
+3.	cd Desktop          (Save a .jpeg image from the browser to the Desktop Suppose hacker.jpeg  and an empty file called secret.txt file as well)
+4.	ls
+5.	echo “This is a very nice code” > secret.txt        (The sentence is saved in the secret.txt)
+6.	steghide embed -cf hacker.jpeg -ef secret.txt
+Enter paraphrase(password):abcd
+RE-Enter paraphrase: abcd
+8.	steghide extract -sf hacker.jpeg
+Enter paraphrase: abcd
+9.	cat secret.txt
+This is a very nice code
+Theory :
+ Burp Suite is a powerful web vulnerability scanner and proxy tool used for web application security testing. Its key functionalities include:
+Intercepting HTTP/HTTPS traffic between the browser and server.
+Scanning web apps for security issues like XSS, SQL injection, etc.
+Manipulating requests/responses to test for vulnerabilities.
+Repeater, Intruder, and Decoder tools for manual testing and attack simulation.
+Steghide Steghide is an open-source tool that allows users to embed and extract hidden data within 
+images and audio files. It supports encryption and maintains file integrity, ensuring the 
+hidden data remains undetectable.
+Key Features of Steghide:
+• Supports JPEG, BMP, WAV, and AU file formats.
+• Uses AES-128 encryption for secure embedding.
+• Preserves the original file size and quality
+conclusion : In this experiment, we successfully applied steganographic techniques using Steghide to hide and extract data and also used Burp Suite to identify and exploit web application vulnerabilities. 
+
+
+EXP 7 
+AIM : Study of malicious software using different tools: a) Keylogger attack using a
+keylogger tool. b) Simulate DOS attack using Hping or other tools c) Use the
+NESSUS/ISO Kali Linux tool to scan the network for vulnerabilities 
+ LAB OUTCOME : In this exp we Successfully simulated a keylogger attack, performed a DoS attack using hping3, and scanned network vulnerabilities using Nessus. 
+ REQUIREMENTS : Keylogger tool (e.g., Revealer Keylogger, KidLogger, Spyrix Free Keylogger)
+Windows/Linux machine to execute the attack
+Hping3 (available in Kali Linux)
+Nessus (Tenable Nessus Scanner) – for network vulnerability assessment
+PROGRAM/COMMANDS : 1. FOR KEYLOGGER USE SPYRIX N FOLLOW THE BASIC STEPS 
+2.DOS ATTACK COMMAND : sudo hping3 -S --flood -p 80 192.168.1.1
+3. For nessus first go to firefox and download nessus debian version and then do cd downloads 
+Then in terminal type this command : dpkg -i Nessus-10.8.4-debian10_amd64.deb
+then at the bottom run as it is instucted and the the nessus page will be shown
+login and then select any random ip address and also download the report
+conclusion : In this experiment, we explored different cybersecurity threats and defense mechanisms through three
+key exercises. First, we performed a keylogger attack using Spyrix, which captured every keystroke
+and took screenshots of the system, showcasing how attackers can secretly monitor user activity.
+Second, we performed a Denial of Service (DoS) attack using Hping3, demonstrating how an attacker
+can flood a target system with excessive packets, leading to service disruption. Lastly, we conducted a
+network vulnerability scan using Nessus, identifying security weaknesses that could potentially be
+exploited by attackers.
+Related Theory 
+1. Keylogger Tool
+A keylogger records every keystroke made by a user. It is often used by attackers to capture passwords, chat logs, and other confidential information silently. Common tools: Logkeys, LKL, or custom scripts.
+🛠️ 2. hping3
+hping3 is a command-line packet generator and analyzer used for network testing and DoS attack simulation. It allows you to send custom TCP/IP packets and flood a target system to test its response and stability.
+🛠️ 3. Nessus
+Nessus is a powerful vulnerability scanner that scans systems for known security issues like outdated software, misconfigurations, and exposed ports. It is widely used by professionals for proactive network defense.
+

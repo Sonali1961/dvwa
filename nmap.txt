@@ -1,0 +1,802 @@
+OSINT EXPS
+EXP1
+Aim : Perform Email Header Analysis for extracting valuable information like sender IP  address, email servers, and routing information. 
+Course Outcome: Analyze the fundamentals of OSINT including its evolution, types, stakeholders, and ethical challenges.
+Requirement:
+•	Windows or Linux Operating System
+•	Gmail Account
+•	Internet Connection
+•	Online Header Analysis Tool:
+https://toolbox.googleapps.com/apps/messageheader/
+Open Source Intelligence (OSINT):
+OSINT refers to the process of collecting and analyzing publicly available information from open sources such as websites, social media, forums, and emails. It is widely used in cybersecurity investigations, threat intelligence, and digital forensics.
+Email Header Analysis:
+Every email contains a hidden section called the header, which stores technical metadata about how and where the message was sent. The email header includes details such as the sender’s IP address, mail servers, timestamps, and authentication checks.
+By analyzing the email header, an investigator can:
+•	Identify the sender’s server and IP address
+•	Trace the path or route the email took (hop-by-hop)
+•	Verify SPF, DKIM, and DMARC results to confirm email authenticity
+•	Detect spoofing or phishing attempts
+
+Important Header Fields:
+Field	Description
+From:	Sender’s email address
+To:	Receiver’s email address
+Date:	Time when the email was sent
+Subject:	Subject line of the email
+Received:	Routing path – each mail server the message passed through
+Message-ID:	Unique identifier for the email
+Return-Path:	Address for bounce messages
+SPF/DKIM/DMARC:	Authentication mechanisms used to verify the sender’s identity
+
+Steps :
+Steps to Perform Email Header Analysis (Using Gmail + Online Tool)
+🔹 Step 1: Open Gmail
+•	Go to https://mail.google.com
+•	Log in with your Gmail account.
+________________________________________
+🔹 Step 2: Select the Email You Want to Analyze
+•	Open any email message (preferably a normal one, like a newsletter or promotional mail — not a personal or confidential one).
+•	You’ll use this email to extract its header information.
+________________________________________
+🔹 Step 3: View the Full Email Header
+1.	Inside the email, look at the top-right corner of the message.
+2.	Click on the three vertical dots (⋮) beside the “Reply” button.
+3.	From the dropdown list, click “Show original.”
+4.	A new tab will open that displays:
+o	The email header (all the technical details)
+o	Some additional information like SPF, DKIM, and DMARC status
+________________________________________
+🔹 Step 4: Copy the Entire Header
+1.	On the “Original Message” page, you’ll see a section labeled “Original Message” or “Header.”
+2.	Click inside that box.
+3.	Press Ctrl + A to select all text.
+4.	Press Ctrl + C to copy it.
+(This is your full email header.)
+________________________________________
+🔹 Step 5: Open the Online Header Analyzer Tool
+Open this official Google tool in a new tab:
+👉 https://toolbox.googleapps.com/apps/messageheader/
+________________________________________
+🔹 Step 6: Paste the Header
+1.	You will see a large text box that says “Paste email header here.”
+2.	Click inside that box and press Ctrl + V to paste your copied Gmail header.
+________________________________________
+🔹 Step 7: Analyze the Header
+•	Click the “Analyze the Header” button.
+•	Wait a few seconds — the tool will process your email header.
+________________________________________
+🔹 Step 8: View the Results
+After analysis, the tool will show:
+•	Routing details → which mail servers handled your email.
+•	Delay per hop → how long each server took to process it.
+•	Sender’s domain and email server IPs.
+•	Authentication checks (SPF, DKIM, DMARC) → tells if the sender is genuine or spoofed.
+________________________________________
+🔹 Step 9: Find Sender IP Location (Optional but Useful for OSINT)
+1.	From the results, note the first “Received from” IP address (that’s usually the sender’s mail server).
+2.	Copy that IP (for example: 203.0.113.45).
+3.	Visit https://ipinfo.io or https://whatismyipaddress.com/ip-lookup.
+4.	Paste the IP and press Enter.
+5.	You’ll get:
+o	Country and city (approximate sender location)
+o	ISP (Internet Service Provider)
+o	Organization name
+________________________________________
+🔹 Step 10: Record Your Observations
+In your practical notebook, note down:
+Parameter	Observed Value
+Sender IP	(Copy from header tool)
+Mail Server	(Server name from routing details)
+Origin Country	(From IP lookup)
+SPF	Pass / Fail
+DKIM	Pass / Fail
+DMARC	Pass / Fail
+Routing Hops	Number of mail servers used
+OUTPUT: 
+ 
+Parameter	Extracted Value
+Sender IP	149.72.115.29
+Mail Server	o629.mail.smytten.com
+Routing Hops	3
+SPF	Pass
+DKIM	Pass
+DMARC	Pass
+Origin Country	United States
+
+Conclusion:
+Through this experiment, the email header was successfully analyzed using Gmail and an online header analysis tool. Important details such as the sender’s IP address, mail servers, routing path, and authentication results were extracted. This demonstrates how OSINT techniques can be applied to trace the origin of emails, verify authenticity, and detect spoofed or phishing messages.
+
+VIVA QUESTIONS 
+1️⃣ What is OSINT?
+Answer:
+OSINT stands for Open Source Intelligence. It involves collecting and analyzing publicly available information from open sources like websites, emails, and social media for investigation or cybersecurity purposes.
+________________________________________
+2️⃣ What is an Email Header?
+Answer:
+An email header is the hidden part of an email that contains technical details such as sender IP, mail servers, timestamps, and authentication information.
+________________________________________
+3️⃣ What is the purpose of Email Header Analysis?
+Answer:
+The purpose is to trace the source of an email, find the sender’s IP address, check authentication results (SPF, DKIM, DMARC), and detect phishing or spoofed emails.
+________________________________________
+4️⃣ How do you view an Email Header in Gmail?
+Answer:
+1.	Open the email.
+2.	Click the three dots (⋮) in the top-right corner.
+3.	Select “Show original.”
+This opens the full email header.
+________________________________________
+5️⃣ Which online tool did you use for analysis?
+Answer:
+I used the Google Admin Toolbox – Message Header Analyzer
+Link: https://toolbox.googleapps.com/apps/messageheader/
+________________________________________
+6️⃣ What is SPF in Email Authentication?
+Answer:
+SPF (Sender Policy Framework) verifies if the email was sent from an authorized mail server for that domain. It helps prevent spoofing.
+________________________________________
+7️⃣ What is DKIM?
+Answer:
+DKIM (DomainKeys Identified Mail) uses a digital signature to confirm that the email content was not changed and is from the legitimate sender.
+________________________________________
+8️⃣ What is DMARC?
+Answer:
+DMARC (Domain-based Message Authentication, Reporting & Conformance) combines SPF and DKIM results to ensure the message is genuine and defines how to handle failed messages.
+________________________________________
+9️⃣ What was the sender IP and country in your experiment?
+Answer:
+The sender IP was 149.72.115.29, and the origin country was United States, belonging to Twilio SendGrid (used by Smytten).
+________________________________________
+🔟 What did you learn from this experiment?
+Answer:
+I learned how to extract and analyze technical details from an email header to verify sender authenticity, identify routing paths, and understand how OSINT techniques are used in email investigations.
+ 
+
+
+
+ 
+EXP 2 
+ Aim : Conduct email address enumeration by attempting to verify the existence of email addresses within a target domain. Use tools like the Harvester or thehunter.io to search for email addresses associated with a specific domain. This can help identify valid email addresses within an organization.
+2.2 Course Outcome
+After completing this experiment, students will be able to analyze the fundamentals of OSINT (Open-Source Intelligence) — including its evolution, different types, stakeholders, and associated ethical and legal challenges in cybersecurity investigations.
+________________________________________
+2.3 Learning Objective
+To learn how to:
+•	Examine email headers to extract sender IP addresses, routing paths, and mail server details.
+•	Understand how OSINT tools such as theHarvester and Hunter.io are used for discovering publicly listed email IDs related to a domain.
+•	Apply ethical principles while performing reconnaissance and enumeration.
+________________________________________
+2.4 Requirement
+•	Operating System: Windows / Linux (Kali Linux preferred)
+•	Tools Required:
+o	theHarvester (pre-installed in Kali Linux)
+o	Web browser for accessing Hunter.io
+o	Internet connectivity
+o	Command-line terminal
+________________________________________
+2.5 Related Theory
+Open-Source Intelligence (OSINT)
+OSINT refers to the process of collecting and analyzing information from publicly available sources such as websites, search engines, social media, and online directories.
+In cybersecurity, OSINT helps identify publicly exposed data, potential vulnerabilities, and sensitive organizational information.
+Email Enumeration
+Email enumeration is the process of gathering or validating email addresses related to a specific domain.
+Attackers use this in the reconnaissance phase to identify potential targets, while defenders use it to assess what information is publicly exposed.
+Techniques used for Email Enumeration:
+1.	Search Engine Queries: Using advanced search operators (e.g., site:domain.com "@domain.com").
+2.	Public Databases & Certificates: Exploring sites like crt.sh or data breaches.
+3.	OSINT Tools: Tools such as theHarvester, Hunter.io, and Recon-NG automate the collection of email addresses.
+4.	Email Headers: Inspecting header information reveals sender IP, routing servers, and authentication details.
+Ethical Considerations
+•	Enumeration should be performed only for educational or authorized security assessments.
+•	Results should not be misused for spamming or social engineering.
+•	Always ensure compliance with organizational policies and privacy laws.
+Program and Output
+Tool Used: theHarvester (Kali Linux)
+Command Executed:
+theHarvester -d sakec.ac.in -b bing,crtsh -l 200 
+Explanation:
+•	-d specifies the target domain.
+•	-b specifies data sources (Bing and crt.sh).
+•	-l 200 limits the number of results to 200.
+Sample Output:
+ 
+
+Observation:
+TheHarvester did not reveal any public email addresses for the domain sakec.ac.in, but it successfully listed 20 valid subdomains associated with the institution.
+This indicates that the domain’s emails are not exposed in public sources like Bing or crt.sh.
+Tool Used: Hunter.io (Web Application)
+Steps:
+1.	Visit https://hunter.io and log in.
+2.	In the search bar, enter the target domain sakec.ac.in.
+3.	Observe the listed email addresses (if any) along with their confidence scores and data sources.
+4.	Export or note down the discovered addresses for reporting.
+
+
+Sample Output
+
+ 
+2.7 Conclusion:
+Email enumeration is a vital part of OSINT and cyber reconnaissance. By leveraging tools like theHarvester and Hunter.io, cybersecurity professionals can discover publicly exposed email addresses associated with a domain. These findings can aid in further investigation and help organizations identify their public attack surface. The lab reinforces the ethical use of OSINT for proactive threat identification and defensive cybersecurity planning
+What is email enumeration?
+Answer:
+Email enumeration is the process of discovering and verifying email addresses associated with a specific domain using open-source intelligence (OSINT) tools or techniques. It helps identify publicly available contact information of an organization.
+________________________________________
+2️⃣ What is the purpose of conducting email enumeration in cybersecurity?
+Answer:
+The main purpose is to gather publicly available information about a target organization during the reconnaissance phase. Ethical hackers use it to assess information exposure, while attackers might use it to plan phishing or social engineering attacks.
+________________________________________
+3️⃣ What is theHarvester tool used for?
+Answer:
+theHarvester is an OSINT tool used to collect emails, subdomains, IPs, and employee names from public data sources such as search engines and online databases.
+________________________________________
+4️⃣ What is the syntax of theHarvester command?
+Answer:
+theHarvester -d <domain> -b <source> -l <limit>
+Example:
+theHarvester -d sakec.ac.in -b bing,crtsh -l 200
+•	-d: target domain
+•	-b: data source (e.g., bing, crtsh)
+•	-l: result limit
+________________________________________
+5️⃣ What are some common data sources supported by theHarvester?
+Answer:
+Some common sources include:
+•	bing
+•	crtsh
+•	duckduckgo
+•	yahoo
+•	shodan
+•	hunter
+•	virustotal
+•	securityTrails
+________________________________________
+6️⃣ What is Hunter.io and how is it used?
+Answer:
+Hunter.io is a web-based OSINT tool used to find professional email addresses associated with a domain.
+You enter a domain (like sakec.ac.in) and it lists found email addresses, confidence scores, and their sources.
+________________________________________
+7️⃣ What information can you extract from an email header?
+Answer:
+From an email header, we can find:
+•	Sender’s IP address
+•	Mail server used
+•	Routing path
+•	Timestamp
+•	Authentication results (SPF/DKIM/DMARC)
+________________________________________
+8️⃣ What does OSINT mean?
+Answer:
+OSINT stands for Open-Source Intelligence.
+It involves collecting and analyzing publicly available information from sources like websites, search engines, and social media to gain insights for cybersecurity or investigation purposes.
+________________________________________
+9️⃣ Why is it important to perform email enumeration ethically?
+Answer:
+Because enumerating or collecting emails without consent can violate privacy and legal boundaries.
+Ethical use ensures data is used only for authorized security testing or academic learning — not for malicious purposes.
+________________________________________
+🔟 What were your observations in this experiment?
+Answer:
+Using theHarvester on the domain sakec.ac.in, we found several valid subdomains but no publicly exposed email addresses.
+This shows that the domain maintains good email privacy and security hygiene.
+
+Experiment-3 — Email Metadata Analysis
+3.1 Aim
+Analyze the metadata of an email, including date/time stamps, email clients used, originating IP address, email origin, estimated geographic location of the sender, and routing path.
+________________________________________
+3.2 Course Outcome
+Apply OSINT tools for passive information gathering to identify potential vulnerabilities in cybersecurity.
+________________________________________
+3.3 Learning Objective
+Analyze email headers to identify the sender’s origin, email client, timestamps, and routing details.
+________________________________________
+3.4 Requirements
+•	A sample email (in Gmail, Outlook, or Yahoo) with full header accessible
+•	Internet connection
+•	Tools:
+o	Google Admin Toolbox — Messageheader 
+o	MXToolbox (https://mxtoolbox.com) or equivalent header analyzers
+o	A browser (Chrome/Firefox)
+o	(Optional) Kali/Ubuntu terminal for dig, whois, traceroute, nslookup commands
+o	(Optional) IP lookup sites (ipinfo.io, whatismyipaddress.com) for geoIP
+________________________________________
+3.5 Theory 
+Email metadata is embedded in the email header and provides forensic information about the message. Important header fields:
+•	Date / Time: When the message was sent and when each server processed it.
+•	From / To / CC / BCC: Sender and recipient addresses.
+•	Subject: Email subject line.
+•	Message-ID: Unique ID for the mail.
+•	Return-Path: Address for bounces.
+•	Received: One or more lines showing each mail server hop (reverse order — last hop first).
+•	X-Originating-IP: Sender device IP (sometimes present).
+•	User-Agent / X-Mailer: Email client used (Outlook, Thunderbird, etc.).
+•	SPF / DKIM / DMARC: Authentication checks that help verify legitimacy.
+________________________________________
+3.6 Procedure — 
+A — Get the full email header (Gmail)
+1.	Open Gmail and login.
+2.	Open the sample email you will analyze.
+3.	Click the three vertical dots (⋮) at the top-right of the message.
+4.	Click “Show original”.
+5.	A new tab opens showing the full raw header and some authentication info.
+6.	Click “Copy to clipboard” (or select all Ctrl+A, then Ctrl+C) to copy the full header text.
+B — Use Google Admin Toolbox Messageheader 
+1.	Open your browser to Google Admin Toolbox → Messageheader:
+https://toolbox.googleapps.com/apps/messageheader/
+2.	Paste the full header you copied into the text box.
+3.	Click “Analyze the header”.
+4.	Read the parsed output: it will show Received chain, SPF / DKIM / DMARC results, and a simplified routing timeline.
+5.	Save or copy the parsed output to your Word doc.
+D — GeoIP lookup of sender IP (simple GUI)
+1.	Copy the sender IP (e.g., 149.72.115.29).
+2.	Open https://ipinfo.io or https://whatismyipaddress.com/ip-lookup.
+3.	Paste the IP and check:
+o	Country / region / city (approximate)
+o	ISP / Organization
+4.	Record the approximate geographic location and ISP.
+E - Trace route to the IP (network path):
+tracert 149.72.115.29 in command prompt
+________________________________________
+3.7 Results —  
+ 
+________________________________________
+3.8 Conclusion 
+In this experiment we extracted and analyzed email metadata from the sample email header. Using Google Admin Toolbox (Messageheader), IP geolocation lookups, and optional command-line tools (dig, whois, traceroute), we identified the mail routing path, the first public sender IP, the likely geographic origin (approximate), and the email client/service used. Authentication checks (SPF, DKIM, DMARC) were inspected to assess legitimacy. The experiment demonstrates how email headers provide valuable forensic information for OSINT investigations and how passive methods can help verify sender identity and detect anomalies. All steps were passive and non-intrusive and performed for educational purposes.
+
+
+
+
+
+Experiment-4
+4.1 Aim: Using OSINT tool such as(Harvester) you can gather information like emails, sub domains, hosts, 
+employee names, open ports and banners from different public sources like search engines, PGPkey server.
+4.2 Lab Outcome: Analyze the fundamentals of OSINT including its evolution, types, stakeholders, and 
+ethical challenges.
+4.3 Learning Objective: Examine email headers to extract sender IP, routing paths, and server 
+details.
+4.4 Requirements: Windows or Linux Operating System
+4.5 Theory: 
+Open Source Intelligence (OSINT) involves the systematic collection and analysis of data available 
+from publicly accessible sources. In cybersecurity, it is used during the reconnaissance phase of 
+ethical hacking to map an organization’s digital footprint without any active intrusion.
+1. Introduction to TheHarvester:
+TheHarvester is a command-line OSINT tool designed for gathering information about domains and 
+associated entities from public sources. It helps security analysts, penetration testers, and 
+investigators to identify:
+• Email addresses related to the target domain.
+• Subdomains and virtual hosts linked with the organization.
+• IP addresses and banners.
+• Employee names found in public directories.
+Primary Data Sources Used by TheHarvester:
+• Search Engines: Google, Bing, DuckDuckGo, Yahoo
+• Social Networks: LinkedIn, Twitter (via plugins)
+• Public Databases: Shodan, Censys, PGP Key servers, and Netcraft
+TheHarvester is widely used for passive reconnaissance, meaning it gathers data without interacting 
+directly with the target’s internal systems, thus reducing the risk of detection.
+2. Working Principle:
+TheHarvester performs OSINT data collection through the following steps:
+1. Query Generation: It formulates search engine queries with the target domain (e.g., 
+site:example.com).
+2. Data Extraction: The tool parses the search results to extract potential email addresses, 
+hostnames, and subdomains.
+3. Data Aggregation: Extracted data is combined and cleaned to remove duplicates.
+4. Validation: Optional verification is performed using DNS lookups or port scans.
+This process provides valuable insights for threat assessment, vulnerability analysis, and phishing 
+investigation.
+3. Importance of Email Header Analysis:
+Email headers contain crucial metadata that can reveal:
+• Sender’s IP Address – to trace origin.
+• Mail server details – showing intermediate relay servers.
+• Routing path – to detect spoofing or phishing sources.
+Analyzing headers helps investigators verify the authenticity of emails and track suspicious 
+communication.
+4. OSINT in Cybersecurity Context:
+• Offensive Use: Ethical hackers use OSINT to prepare attack simulations or penetration tests.
+• Defensive Use: Organizations use OSINT to assess their own public exposure.
+• Forensics Use: Investigators use OSINT to track criminals or online frauds.
+Ethical Considerations:
+While OSINT uses public data, analysts must ensure:
+• No unauthorized access or exploitation.
+• Data collection complies with privacy laws (GDPR, IT Act, etc.).
+• Ethical disclosure of findings.
+4.6 Output
+Procedure:
+Step 1: Run the Comprehensive Scan
+theHarvester -d sakec.ac.in -l 300 -b bing,duckduckgo,crtsh,hackertarget,securityTrails,urlscan,virustotal,threatminer,rapiddns -v
+What it does:
+•	Like a detective using multiple search methods to find everything about the college
+•	Looks for: Emails, subdomains, IP addresses, and server information
+•	Uses 9 different search methods (search engines + security databases)
+•	Shows detailed progress (-v = verbose = shows what's happening step by step)
+
+Step 2: Save Results to File
+theHarvester -d sakec.ac.in -l 300 -b bing,duckduckgo,crtsh,hackertarget,securityTrails,urlscan,virustotal,threatminer,rapiddns -f sakec_osint_report.html
+What it does:
+•	Same search as Command 1, but saves results to a file
+•	Creates a nice HTML report you can open in a web browser
+•	Keeps a permanent record of your findings
+•	Useful for documentation and showing results to others
+
+Step 3: Focus on Specific Intelligence Types
+For Maximum Subdomains:
+theHarvester -d sakec.ac.in -b crtsh,hackertarget,rapiddns,securityTrails,virustotal -v
+What it does:
+•	Specialized search focused ONLY on finding subdomains
+•	Examples of subdomains it might find:
+o	mail.sakec.ac.in (email server)
+o	portal.sakec.ac.in (student portal)
+o	library.sakec.ac.in (library system)
+o	elearn.sakec.ac.in (online learning)
+•	Uses specialized databases that track website connections
+
+For Email Discovery:
+theHarvester -d sakec.ac.in -b bing,duckduckgo,threatminer,urlscan -v
+What it does:
+•	Specialized search focused ONLY on finding email addresses
+•	Looks for email patterns like:
+o	principal@sakec.ac.in
+o	professor.name@sakec.ac.in
+o	admin@sakec.ac.in
+o	placement@sakec.ac.in
+•	Searches through public documents and websites where emails might be published
+
+ 
+4.7 Conclusion: In this experiment, we successfully performed information gathering using TheHarvester, an OSINT reconnaissance tool. The tool extracted valuable data such as emails,subdomains, IP addresses, and server details from public sources. Even without directly interacting with target systems, we could map a domain’s public exposure. This experiment highlights how OSINTtools assist cybersecurity professionals in threat intelligence, vulnerability discovery, and forensic investigations, while emphasizing the importance of ethical use of publicly available data
+What is TheHarvester?
+Answer:
+TheHarvester is an open-source OSINT tool used to gather emails, subdomains, hosts, and other information related to a target domain from public data sources like Bing, crt.sh, and Shodan.
+________________________________________
+🔹 4. What type of information can TheHarvester collect?
+Answer:
+•	Email addresses
+•	Subdomains and hosts
+•	Employee names
+•	IP addresses
+•	Banner and service information (if enabled)
+________________________________________
+🔹 5. What are some common data sources used by TheHarvester?
+Answer:
+Bing, Yahoo, crt.sh (certificate transparency logs), DuckDuckGo, Shodan, Hunter.io, and DNSDumpster.
+________________________________________
+🔹 6. What is the difference between passive and active information gathering?
+Answer:
+•	Passive: Collects data without directly interacting with the target (e.g., using search engines, WHOIS).
+•	Active: Involves direct communication with the target system (e.g., using Nmap scans).
+________________________________________
+🔹 7. What command is used to run TheHarvester in Kali Linux?
+Answer:
+theHarvester -d infosectrain.com -l 500 -b bing,crtsh
+This gathers public information from Bing and crt.sh related to infosectrain.com.
+________________________________________
+🔹 8. What is the role of the -d, -l, and -b options in TheHarvester?
+Answer:
+•	-d → Specifies the domain name (target)
+•	-l → Limits the number of search results
+•	-b → Selects the data source(s) (e.g., bing, crtsh)
+________________________________________
+🔹 9. What is the use of the whois command in OSINT?
+Answer:
+The whois command retrieves registration and ownership details of a domain, such as organization name, creation date, and contact information.
+________________________________________
+🔹 10. What is the ethical consideration in OSINT?
+Answer:
+OSINT should be used only for ethical and legal purposes such as cybersecurity research, threat intelligence, or authorized investigations — not for hacking or privacy violations.
+
+
+Experiment-5
+5.1 Aim:
+To perform reverse image analysis to find the physical location where an image was captured using Open Source Intelligence (OSINT) techniques. The task involves extracting metadata using ExifTool in Kali Linux to identify GPS coordinates or other image attributes.
+________________________________________
+5.2 Course Outcome:
+Analyze the fundamentals of OSINT including its evolution, types, stakeholders, and ethical challenges.
+________________________________________
+5.3 Learning Objective:
+Investigate visual cues and metadata in digital images to identify accurate geolocation information using OSINT tools.
+________________________________________
+5.4 Requirement:
+•	Operating System: Kali Linux
+•	Tool: ExifTool
+•	Internet connection (optional, for verification using Google Maps)
+•	Sample image containing GPS metadata
+________________________________________
+5.5 Related Theory:
+Open Source Intelligence (OSINT):
+OSINT refers to collecting and analyzing publicly available data from open sources such as websites, social media, images, and public records to generate actionable intelligence. It helps in cybersecurity investigations, digital forensics, and threat intelligence.
+Reverse Image Analysis:
+Reverse image analysis involves examining images to determine their source, authenticity, or location where they were captured. It can involve:
+•	Metadata analysis (Exif data)
+•	Visual analysis (landmarks, text, signs)
+•	Reverse search using tools like Google Images or Yandex
+Exif Metadata:
+Exchangeable Image File Format (EXIF) stores metadata inside image files, including:
+•	Camera model and manufacturer
+•	Date and time of capture
+•	GPS latitude and longitude
+•	Software used for editing
+Common OSINT Tools for Image Analysis:
+Tool	Purpose
+ExifTool	Extracts all metadata from image/video files
+Jeffrey’s Exif Viewer	Online viewer for GPS and EXIF data
+Google Reverse Image Search	Finds visually similar images and sources
+Yandex Image Search	Identifies landmarks and locations
+FotoForensics	Detects image manipulation and metadata
+GeoSpy or GeoGuessr	Visual landmark-based location estimation
+
+5.6 Program and Output:
+Step 1: Installation of ExifTool (if not installed)
+sudo apt update
+sudo apt install exiftool
+Step 2: Verify Installation
+exiftool -ver
+Output:
+13.25 (version may vary)
+Step 3: Run ExifTool on an Image
+First save an image using this link of github 
+https://github.com/ianare/exif-samples/tree/master/jpg/gps
+
+Navigate to the directory containing the image:
+cd ~/Pictures
+exiftool test1.jpg
+Step 4: Analyze Output
+Here copy the gps coordinates and paste on google maps 
+
+Simultaneously u can directly use exif tool online after downloading  image from github
+5.7 Conclusion:
+The experiment successfully demonstrated reverse image analysis using ExifTool on Kali Linux. By extracting EXIF metadata, GPS coordinates embedded in the image were identified and verified on Google Maps. This technique highlights the importance of metadata in digital forensics and OSINT investigations, enabling analysts to trace the physical origin of multimedia content.
+1. What is the purpose of reverse image analysis?
+Reverse image analysis is used to determine the source, authenticity, or location of an image. It helps in identifying where and when a photo was taken, detecting forgeries, and performing digital forensics.
+________________________________________
+2. What does OSINT stand for and what is its main goal?
+OSINT stands for Open Source Intelligence. Its goal is to collect and analyze publicly available information (from the internet, media, or public data) for investigation and intelligence purposes.
+________________________________________
+3. What is metadata in an image?
+Metadata is data about data. In images, metadata (like EXIF) contains information such as the date/time the photo was taken, camera details, image resolution, and sometimes GPS coordinates.
+________________________________________
+4. What is EXIF data?
+EXIF (Exchangeable Image File Format) data is a type of metadata stored in image files by digital cameras and smartphones. It may include camera make/model, exposure, orientation, and GPS information.
+________________________________________
+5. What command is used to extract metadata using ExifTool?
+exiftool image_name.jpg
+This command lists all available metadata fields of the given image.
+________________________________________
+6. How can you find the image capture location from metadata?
+If the image contains GPS tags (GPS Latitude and GPS Longitude), you can copy those coordinates and paste them into Google Maps or any map service to find the physical location.
+________________________________________
+7. Can all images contain GPS data? Why or why not?
+No. Only images captured by devices with GPS-enabled cameras (like smartphones) store location data. If GPS was disabled or the image was edited, the metadata might not include location.
+________________________________________
+8. Name some tools used for image-based OSINT investigations.
+•	ExifTool – Extracts metadata from files
+•	Google Reverse Image Search – Finds similar images online
+•	Yandex Images – Identifies landmarks and visual clues
+•	FotoForensics – Detects image tampering
+•	Jeffrey’s Exif Viewer – Online EXIF and GPS viewer
+________________________________________
+9. What are some ethical concerns in OSINT image analysis?
+•	Privacy violation of individuals
+•	Misuse of geolocation data
+•	Data manipulation or false attribution
+•	Legal implications of tracking without consent
+________________________________________
+10. How can EXIF data be removed for privacy protection?
+Use tools or commands like:
+exiftool -all= image.jpg
+This removes all metadata, protecting the user’s location and personal data before sharing the image online.
+
+
+
+
+
+
+Experiment 7: Website Technology Identification using OSINT Tools
+7.1 Aim:
+Use OSINT tools to identify the technologies and frameworks used by a website, such as content management systems (CMS), server software, programming languages, or analytics tools, and create vulnerability reports.
+________________________________________
+7.2 Course Outcome:
+Demonstrate digital footprint and geospatial profiling using OSINT tools.
+________________________________________
+7.3 Learning Objectives:
+•	Understand how OSINT tools can extract detailed information about website technologies.
+•	Generate a basic vulnerability report based on identified technologies.
+•	Enhance awareness of reconnaissance and ethical website analysis techniques.
+________________________________________
+7.4 Requirements:
+•	Operating System: Windows or Linux
+•	Tools Used: BuiltWith, Wappalyzer, Whois Lookup, Netcraft, Shodan, Nmap, CVE/NVD Databases
+________________________________________
+7.5 Related Theory:
+Open Source Intelligence (OSINT) involves collecting and analyzing publicly available information to generate actionable cybersecurity intelligence.
+In this experiment, OSINT tools were used to extract details about a website’s backend technologies including CMS, frameworks, server types, and analytics tools.
+Concept of OSINT:
+•	Helps in identifying vulnerabilities and exposure points from open data sources such as websites, IP addresses, and public repositories.
+•	Enables reconnaissance and risk assessment without direct intrusion.
+Website Fingerprinting:
+This is the process of identifying underlying technologies used by a website such as:
+•	Server Type: Apache, Nginx, IIS
+•	CMS: WordPress, Joomla, Drupal
+•	Programming Language: PHP, Python, Node.js
+•	Analytics/CDN Providers: Google Analytics, Cloudflare
+Vulnerability Mapping:
+After identifying technologies, cybersecurity professionals use public vulnerability databases (like NVD or CVE Details) to find known exploits or weaknesses affecting those technologies.
+7.6 Program and Output:
+Step 1: Select Target Website
+Target website: https://trusttrace.net.in
+A.]BuiltWith — tech fingerprint
+Open in browser:
+https://builtwith.com/trusttrace.net.in
+→ Record: CMS, server, CDN, analytics, frameworks reported by BuiltWith.
+b.]Security headers check
+Open:
+https://securityheaders.com/?q=trusttrace.net.in&followRedirects=on
+→ Record: Grade and any missing headers (CSP, HSTS, X-Frame-Options).
+C.]Whois (web) — domain registration
+Open ICANN lookup or DomainTools:
+https://lookup.icann.org/ then enter trusttrace.net.in
+→ Record: Registrar, registered on, expires on, nameservers, registrant (if public).
+Step 4: Use Shodan or Nmap to check open ports. • Port 80 (HTTP) • Port 443 (HTTPS) • Port 22 (SSH) 
+Step 5: Map vulnerabilities using CVE or NVD databases.
+ • Nginx – CVE-2023-23752 (Medium Risk) 
+Django CSRF – CVE-2023-33690 (High Risk) 
+• Python – CVE-2023-0567 (Low Risk)
+7.7 Conclusion: Through this experiment, various OSINT tools were successfully used to identify the website’s technology stack, server configurations, and potential vulnerabilities. The analysis demonstrated how reconnaissance tools like BuiltWith and Whois Lookup assist cybersecurity analysts in assessing the public digital footprint of an organization. Such intelligence supports proactive defense, patch management, and system hardening practices.
+1. What is the main objective of this experiment?
+Answer:
+The objective is to use Open Source Intelligence (OSINT) tools to identify the technologies and frameworks used by a website—such as CMS, web server, programming languages, and analytics tools—and to analyze any known vulnerabilities related to these technologies.
+________________________________________
+🔹 2. What is OSINT, and why is it important in cybersecurity?
+Answer:
+OSINT (Open Source Intelligence) refers to gathering and analyzing information from publicly available sources. It is important in cybersecurity because it helps analysts collect data legally to assess digital footprints, discover vulnerabilities, and enhance threat intelligence without directly attacking a system.
+________________________________________
+🔹 3. What are some tools used for website technology identification?
+Answer:
+Common tools include:
+•	BuiltWith – for technology stack detection.
+•	Wappalyzer – to identify CMS, frameworks, and analytics tools.
+•	Whois Lookup – to find domain registration details.
+•	SSL Labs – to analyze SSL/TLS configurations.
+•	Shodan / Nmap – to view open ports or services.
+________________________________________
+🔹 4. What information can a WHOIS lookup provide?
+Answer:
+WHOIS lookup provides domain ownership and registration details such as:
+•	Registrar name (e.g., GoDaddy)
+•	Domain creation and expiration dates
+•	Contact information (if public)
+•	Name servers
+•	Domain status (active, expired, etc.)
+________________________________________
+🔹 5. What are CMS, frameworks, and server technologies?
+Answer:
+•	CMS (Content Management System): Platforms like WordPress, Joomla, or Drupal for managing website content.
+•	Frameworks: Software structures like Django, React, or Angular used to build applications.
+•	Server technologies: Software like Apache, Nginx, or Microsoft IIS that host the website.
+________________________________________
+🔹 6. What is a vulnerability report, and why is it important?
+Answer:
+A vulnerability report lists security weaknesses identified in a system, often mapped to known CVEs (Common Vulnerabilities and Exposures). It helps organizations understand risks and apply security patches or configuration changes to prevent attacks.
+________________________________________
+🔹 7. What is the difference between passive and active OSINT reconnaissance?
+Answer:
+•	Passive OSINT: Collects information without directly interacting with or scanning the target (e.g., using BuiltWith or Whois).
+•	Active OSINT: Involves directly interacting with the target system (e.g., using Nmap scans), which can reveal the analyst’s presence and may require permission.
+________________________________________
+🔹 8. What type of vulnerabilities can be found by analyzing website technologies?
+Answer:
+•	Outdated CMS or plugins (e.g., old WordPress versions)
+•	Misconfigured SSL certificates (e.g., expired, weak ciphers)
+•	Unpatched frameworks or servers (e.g., Django or Nginx vulnerabilities)
+•	Missing security headers (e.g., no CSP or HSTS)
+________________________________________
+🔹 9. What are CVE and NVD databases?
+Answer:
+•	CVE (Common Vulnerabilities and Exposures): A list of publicly disclosed security vulnerabilities.
+•	NVD (National Vulnerability Database): A U.S. government repository that provides detailed vulnerability information, including CVSS severity scores and mitigation guidance.
+________________________________________
+🔹 10. What ethical practices should be followed when performing OSINT?
+Answer:
+•	Use only publicly available information.
+•	Never perform unauthorized scans or exploitation.
+•	Respect privacy and data protection laws.
+•	Verify the accuracy of collected data.
+Experiment-8
+8.1 Aim:
+To determine the geolocation (country, city, or approximate location) of at least 10 IP addresses using online IP geolocation tools, databases, and OSINT techniques to accurately identify the physical location associated with each IP.
+8.2 Course Outcome:
+Demonstrate digital footprint and geospatial profiling using OSINT tools.
+8.3 Learning Objective:
+• Identify the geographical location (country, city, and ISP) of IP addresses using OSINT tools.
+• Understand how IP geolocation databases function.
+• Learn to interpret network-based and registry-based location data ethically.
+8.4 Requirement:
+• Windows or Linux Operating System
+• Tools: IPinfo.io, iplocation.net, Shodan, MaxMind GeoLite2, Google Maps, IP2Location.
+8.5 Related Theory:
+IP Geolocation in OSINT:
+IP geolocation is a process of determining the geographical location of a device or user based on their IP address. Geolocation databases collect information from multiple sources such as ISP registries, GPS data, Wi-Fi mapping, and latency-based triangulation to approximate the user’s physical location. How It Works:
+• IP ranges are allocated by Regional Internet Registries (RIRs).
+• Databases like IPinfo and MaxMind map IP blocks to countries, cities, and ISPs.
+• OSINT investigators use these records to understand the origin or distribution of network
+activity.
+Applications:
+• Tracking cyberattack sources
+• Analyzing website visitors geographically
+• Detecting fraudulent or suspicious access attempts
+• Supporting law enforcement and digital investigations
+Limitations:
+• VPNs and proxies can mask real locations.
+• Some IPs correspond to data centers, not individuals.
+• Accuracy varies by region and ISP reporting.
+8.6 Program and Output:
+Step 1: Select at least 10 different IP addresses for testing (e.g., 8.8.8.8, 152.58.29.252, 142.250.183.196).
+Step 2: Use IPinfo.io to get country, ISP, and continent details for each IP address.
+Step 3: Cross-verify results using Shodan or iplocation.net for accuracy and network insights
+Step 4: Compare geolocation results from different databases to find consistency.
+Step 5: Document IP, city, country, ISP, and latitude/longitude for each tested address.
+8.7 Conclusion:
+This experiment demonstrated how OSINT-based IP geolocation tools such as IPinfo.io and Shodan can identify approximate physical locations of IP addresses. By analyzing data like country, city, and ISP, investigators can map network origins and digital footprints. While these tools are valuable for cybersecurity, digital forensics, and threat attribution, ethical and legal considerations must always be maintained during their use.
+1. What is IP geolocation?
+Answer:
+IP geolocation is the process of determining the approximate physical location (such as country, city, or region) of a device or user based on their IP address using databases and OSINT tools.
+________________________________________
+🔹 2. What is the main objective of this experiment?
+Answer:
+The main objective is to use online OSINT tools like IPinfo.io, iplocation.net, and Shodan to identify the geographical details of IP addresses—such as country, city, ISP, and coordinates—and to understand how IP geolocation databases work.
+________________________________________
+🔹 3. How does IP geolocation work?
+Answer:
+IP geolocation works by mapping IP address ranges to specific locations using data from:
+•	Regional Internet Registries (RIRs)
+•	Internet Service Providers (ISPs)
+•	Wi-Fi mapping and GPS data
+•	Latency-based triangulation methods
+________________________________________
+🔹 4. Name some tools or websites used for IP geolocation.
+Answer:
+Some common tools include:
+•	IPinfo.io
+•	iplocation.net
+•	Shodan
+•	MaxMind GeoLite2
+•	IP2Location
+•	Google Maps (for visualization)
+________________________________________
+🔹 5. What information can IPinfo.io provide?
+Answer:
+IPinfo.io provides detailed data such as:
+•	IP’s country, city, and region
+•	ISP or organization name
+•	Latitude and longitude
+•	Connection type (mobile, broadband, etc.)
+•	ASN (Autonomous System Number)
+________________________________________
+🔹 6. What are the applications of IP geolocation in cybersecurity?
+Answer:
+•	Tracking the source of cyberattacks
+•	Identifying fraudulent access or login attempts
+•	Analyzing traffic patterns on a website
+•	Supporting digital forensics and law enforcement
+•	Detecting botnet or proxy-based attacks
+________________________________________
+🔹 7. What are the limitations of IP geolocation?
+Answer:
+•	VPNs, proxies, and Tor networks can mask real locations.
+•	Data centers or cloud IPs may not represent individuals.
+•	Accuracy can vary depending on region or ISP data.
+•	Some databases may be outdated or inconsistent.
+________________________________________
+🔹 8. What is Shodan, and how is it used in this experiment?
+Answer:
+Shodan is a search engine for Internet-connected devices. It can show IP geolocation details along with open ports, running services, and device types. In this experiment, it’s used to cross-verify IP location and gather network-based insights.
+________________________________________
+🔹 9. What is the difference between IPinfo.io and iplocation.net?
+Answer:
+•	IPinfo.io provides data from its own maintained geolocation database and ASN registry.
+•	Iplocation.net aggregates results from multiple geolocation providers, allowing users to compare accuracy and consistency between databases.
+________________________________________
+🔹 10. What ethical practices should be followed while using IP geolocation tools?
+Answer:
+•	Only use publicly available data for educational or defensive purposes.
+•	Do not attempt to track individuals without legal permission.
+•	Respect data privacy laws and ethical OSINT principles.
+•	Avoid using results for malicious or unauthorized investigations.
+

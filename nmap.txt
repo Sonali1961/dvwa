@@ -1,644 +1,892 @@
-Git & GitHub Cheat Sheet (Experiment 1 & 2)
-________________________________________
-🔹 Theory Summary
-🔸 Version Control System (VCS)
-A Version Control System helps track file changes over time so that you can restore previous versions, collaborate with others, and manage project history efficiently.
-•	Local VCS: Tracks files only on one system.
-•	Centralized VCS: Uses one central server (e.g., SVN).
-•	Distributed VCS (DVCS): Every user has a full copy of the repo (e.g., Git).
-________________________________________
-🔸 Git
-Git is a distributed version control system that tracks code changes locally.
-It allows developers to work independently and merge their work seamlessly.
-🔸 GitHub
-GitHub is a remote hosting platform for Git repositories — used for collaboration, synchronization, and backup of code.
-________________________________________
-🔸 Key Git Concepts
-Term	Meaning
-Repository (Repo)	The project directory where Git tracks changes.
-Commit	A snapshot of the project at a point in time.
-Branch	A separate line of development.
-Merge	Combines changes from different branches.
-Remote	Online repository hosted on GitHub.
-________________________________________
-🔹 Git Command Cheat Sheet
-Command	Description	Used In
-git --version	Checks Git installation.	Setup
-git config --global user.name "Name"	Sets username.	Setup
-git config --global user.email "Email"	Sets email.	Setup
-git init	Initializes a local repository.	Exp 1
-git status	Shows current file status.	Exp 1
-git add .	Adds all files to staging area.	Exp 1
-git commit -m "message"	Saves staged changes permanently.	Exp 1
-git log	Shows commit history.	Exp 1
-git branch <name>	Creates a new branch.	Exp 1
-git checkout <name>	Switches to another branch.	Exp 1
-git merge <branch>	Merges another branch into current one.	Exp 1
-git diff	Displays file differences.	Exp 1
-git remote add origin <URL>	Connects local repo to GitHub.	Exp 2
-git branch -M main	Renames branch to main.	Exp 2
-git push -u origin main	Uploads commits to GitHub.	Exp 2
-git push origin <branch>	Pushes new branch to GitHub.	Exp 2
-git pull origin main	Fetches and merges changes from GitHub.	Exp 2
-git clone <URL>	Copies remote repo locally.	Exp 2
-git log --oneline --graph	Displays commit history visually.	Exp 2
-________________________________________
-🔹 Workflow Summary
-Experiment 1 – Local Git
-1.	Create folder and initialize Git → git init
-2.	Add files → git add .
-3.	Commit changes → git commit -m "Initial commit"
-4.	Create & switch branch → git checkout -b feature
-5.	Merge branch → git checkout main → git merge feature
-6.	View history → git log
-________________________________________
-Experiment 2 – GitHub Sync
-1.	Create GitHub repo (without README).
-2.	Connect local repo →
-3.	git remote add origin <repo-URL>
-4.	git branch -M main
-5.	git push -u origin main
-6.	Create a branch → git checkout -b project
-7.	Push to GitHub → git push -u origin project
-8.	Merge branch locally → git merge project
-9.	Pull latest changes → git pull origin main
-10.	Clone repo (optional) → git clone <repo-URL>
-________________________________________
-🔹 Git File Lifecycle
-Untracked → Staged → Committed → Pushed (to GitHub)
-________________________________________
-🔹 Git vs GitHub
-Feature	Git	GitHub
-Type	Local tool	Cloud platform
-Works	Offline	Online
-Purpose	Version control	Collaboration & hosting
-Example	git commit	git push, git pull
-________________________________________
-🔹 Advantages
-1.	Tracks complete project history.
-2.	Enables multiple developers to collaborate.
-3.	Allows rollback to previous versions.
-4.	Provides secure online backup via GitHub.
-5.	Simplifies code merging and conflict resolution.
-________________________________________
-🔹 Conclusion
-In these two experiments, we learned:
-•	How to use Git for local version control (Exp 1).
-•	How to sync and collaborate using GitHub (Exp 2).
-These skills form the foundation of DevSecOps workflows, ensuring efficient teamwork, traceability, and secure version management.
+Experiment No. 1
+Title:
+Collect, Clean, Integrate and Transform Healthcare Data based on a Specific Disease
+Aim:
+To collect, clean, integrate, and transform healthcare data (Diabetes dataset) for use in AI/ML models.
+Theory:
+Healthcare data often contains missing values, inconsistencies, and redundant information. Before using it for AI or ML applications, it must be cleaned, integrated, and transformed.
+•	Data Cleaning: Handles missing, invalid, or duplicate values (e.g., replacing 0 with NaN, imputing with median).
+•	Data Integration: Combines data from multiple sources (e.g., merging patient demographics).
+•	Data Transformation: Scales, encodes, or categorizes data to make it suitable for machine learning algorithms.
+These preprocessing steps ensure the dataset is consistent, accurate, and ready for model training.
+Requirements:
+•	Jupyter Notebook / Anaconda
+•	Python Libraries: pandas, numpy, sklearn
+•	Dataset: diabetes.csv
+Steps Involved:
+1.	Imported required libraries – pandas, numpy, sklearn.
+2.	Loaded the dataset using pd.read_csv().
+3.	Checked data structure using df.head(), df.info(), and df.describe().
+4.	Detected invalid values (0 in Glucose, BMI, etc.) and replaced them with NaN.
+5.	Imputed missing values using the median strategy.
+6.	Removed duplicates and assigned unique PatientID.
+7.	Integrated demographic data (City and Gender) using merge operation.
+8.	Created new derived features such as BMI_Category.
+9.	Scaled numeric features using StandardScaler to prepare for ML.
+10.	Verified cleaned data using df.isna().sum() and saved the final dataset as cleaned_diabetes_dataset.csv.
+Conclusion:
+The healthcare dataset was successfully collected, cleaned, integrated, and transformed. Missing and invalid values were handled, duplicates removed, and relevant transformations applied. The final dataset is accurate, consistent, and ready for further analysis or machine learning applications in disease prediction.
+Code: cell1
+import pandas as pd
+import numpy as np
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.model_selection import train_test_split
 
-Experiment 3: Create Jenkins Pipeline using Scripted/Declarative Pipeline
-Step 1: Open Jenkins Dashboard
-•	Go to your browser → open http://localhost:8080
-•	Log in with your Jenkins admin username and password.
-________________________________________
-Step 2: Create a New Pipeline Project
-1.	Click “New Item” on the left menu.
-2.	Enter a name → MyFirstPipeline.
-3.	Select “Pipeline” → click OK.
-________________________________________
-Step 3: Scroll Down to the Pipeline Section
-•	Under Definition, choose “Pipeline script” (default option).
-•	You’ll see a big text box to write your pipeline code.
-________________________________________
-Step 4: Write Declarative Pipeline Code
-Copy and paste the following inside the script box:
-pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            steps {
-                echo '🔨 Building the project...'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo '🧪 Running tests...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo '🚀 Deploying the application...'
-            }
-        }
-    }
-}
-________________________________________
-Step 5: Save and Run
-1.	Click Save.
-2.	On the left sidebar → click Build Now.
-✅ Jenkins will start running your pipeline.
-________________________________________
-Step 6: View Console Output
-1.	Click on the #1 build under “Build History”.
-2.	Click Console Output.
-You’ll see:
-[Pipeline] Start of Pipeline
-🔨 Building the project...
-🧪 Running tests...
-🚀 Deploying the application...
-Finished: SUCCESS
-✅ This confirms your Declarative Pipeline ran successfully.
-________________________________________
-Step 7: Run a Scripted Pipeline
-Now, to understand the difference — edit your pipeline:
-1.	Go to Dashboard → MyFirstPipeline → Configure.
-2.	Scroll to the Pipeline section.
-3.	Replace the code with:
-node {
-    stage('Build') {
-        echo '🔧 Building the project...'
-    }
-    stage('Test') {
-        echo '🧩 Testing the project...'
-    }
-    stage('Deploy') {
-        echo '🚢 Deploying the project...'
-    }
-}
-4.	Click Save → Build Now again.
-________________________________________
-Step 8: Check Scripted Pipeline Output
-In Console Output, you’ll see:
-🔧 Building the project...
-🧩 Testing the project...
-🚢 Deploying the project...
-Finished: SUCCESS
-✅ This confirms your Scripted Pipeline also ran successfully.
-________________________________________
-Step 9: Compare Results
-Type	Syntax	Example Keyword	Simplicity
-Declarative	Structured	pipeline {}	Easier for beginners
-Scripted	Groovy script style	node {}	More flexible
-________________________________________
-Step 10: End of Experiment
-You have now successfully:
-✅ Created Jenkins pipeline
-✅ Executed both Declarative and Scripted pipelines
-✅ Viewed console output confirming successful stages
+Cell 2: 
+import os
+os.getcwd()
 
-Introduction to Jenkins
-Jenkins is an open-source automation server that helps in implementing Continuous Integration (CI) and Continuous Deployment (CD). It automates repetitive tasks such as building, testing, and deploying applications, ensuring faster software delivery with fewer errors.
-A pipeline in Jenkins represents a sequence of automated steps that run from code development to deployment. Pipelines are written using a Jenkinsfile which defines the stages, steps, and actions.
+cell 4:
+import pandas as pd
+df = pd.read_csv(r"C:\Users\Miche\Downloads\diabetes dataset\diabetes.csv")
+df.head()
+Verify dataset loaded correctly
+df.head()      # show first few rows
+df.shape       # show number of rows and columns
+df.info()      # data types and missing values info
+df.describe()  # statistical summary
+✅ This helps you understand what columns exist and if any have 0s or missing data.
 ________________________________________
-🔹 Types of Jenkins Pipelines
-There are mainly two types of pipelines in Jenkins:
-1. Declarative Pipeline
-•	Introduced to make pipeline syntax simpler and more readable.
-•	Uses the keyword pipeline {} as the root.
-•	The structure is predefined, making it less error-prone.
-•	Best for beginners or standard CI/CD processes.
+🔹 Step 2 — Identify invalid or missing values
+Check which columns have zeros or nulls (especially if 0 is not valid medically):
+df.isna().sum()   # count missing values
+
+# For healthcare data, often 0 is invalid in these columns:
+cols_check = ['Glucose','BloodPressure','SkinThickness','Insulin','BMI']
+(df[cols_check] == 0).sum()
 ________________________________________
-2. Scripted Pipeline
-•	Based on Groovy scripting and provides more flexibility.
-•	Uses the node {} syntax.
-•	Allows complex logic, loops, conditionals, and external integrations.
-•	Preferred by advanced users for custom automation.
+🔹 Step 3 — Replace 0s with NaN (if they’re invalid)
+import numpy as np
+cols_to_fix = ['Glucose','BloodPressure','SkinThickness','Insulin','BMI']
+df[cols_to_fix] = df[cols_to_fix].replace(0, np.nan)
+df.isna().sum()
+________________________________________
+🔹 Step 4 — Handle missing data (imputation)
+You can fill missing values using median (good for skewed health data):
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(strategy='median')
+df[cols_to_fix] = imputer.fit_transform(df[cols_to_fix])
+✅ Now your dataset has no missing or invalid values.
+________________________________________
+🔹 Step 5 — Remove duplicates & assign unique ID (optional)
+df = df.drop_duplicates().reset_index(drop=True)
+df.insert(0, 'PatientID', range(1, len(df)+1))
+________________________________________
+🔹 Step 6 — Simulate/Integrate demographic data
+(If you don’t have another dataset, you can create a small one to “integrate.”)
+import pandas as pd
+demo = pd.DataFrame({
+    'PatientID': df['PatientID'],
+    'City': np.random.choice(['Mumbai','Delhi','Chennai','Bengaluru'], len(df)),
+    'Gender': np.random.choice(['Male','Female'], len(df))
+})
+df = pd.merge(df, demo, on='PatientID', how='left')
+df.head()
+________________________________________
+🔹 Step 7 — Feature Engineering (transform the data)
+Example: create BMI categories or age groups.
+def bmi_category(b):
+    if b < 18.5: return 'Underweight'
+    elif b < 25: return 'Normal'
+    elif b < 30: return 'Overweight'
+    else: return 'Obese'
+
+df['BMI_Category'] = df['BMI'].apply(bmi_category)
+________________________________________
+🔹 Step 8 — Scale numeric features (prepare for ML)
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+num_cols = ['Glucose','BloodPressure','SkinThickness','Insulin','BMI']
+df[[c + '_scaled' for c in num_cols]] = scaler.fit_transform(df[num_cols])
+________________________________________
+🔹 Step 9 — Final check & save
+print(df.isna().sum())
+df.to_csv('cleaned_diabetes_dataset.csv', index=False)
+print("✅ Cleaned dataset saved successfully!")
+________________________________________
+🔹 Step 10 — (Optional) Quick summary
+print("Rows:", df.shape[0])
+print("Columns:", df.shape[1])
+print("Duplicates:", df.duplicated().sum())
+df.describe()
 
 
-🔹 Key Components of a Jenkins Pipeline
-Component	Description
-Agent	Defines where the pipeline runs (local machine or remote node).
-Stages	Logical divisions like Build, Test, Deploy.
-Steps	Actual tasks performed within a stage.
-Post	Actions to run after completion (like cleanup or notifications).
-________________________________________
-🔹 Advantages of Jenkins Pipelines
-1.	Automation: Reduces manual tasks by automating build, test, and deployment.
-2.	Consistency: Ensures uniform workflow across environments.
-3.	Error Reduction: Detects issues early in the development lifecycle.
-4.	Scalability: Supports integration with multiple tools (Git, Maven, Docker).
-5.	Flexibility: Scripted pipelines allow dynamic customization.
-________________________________________
-🔹 Difference Between Declarative and Scripted Pipelines
-Feature	Declarative	Scripted
-Syntax	Simplified, structured (pipeline {})	Groovy-based (node {})
-Ease of Use	Beginner-friendly	Complex but flexible
-Validation	Strict syntax rules	Free-form scripting
-Error Handling	Automatic validation	Manual error control
-Best For	Standard CI/CD setups	Custom automation logic
-________________________________________
-🔹 Conclusion
-Jenkins Pipelines help automate software development workflows efficiently.
-The Declarative Pipeline is easy to use and ideal for beginners, while the Scripted Pipeline provides greater control for complex automation scenarios.
-Understanding both allows developer
 
 
-EXP 4
-Related Theory
-🔹 What is Jenkins?
-Jenkins is a CI/CD (Continuous Integration/Continuous Deployment) automation server used to:
-•	Build and test projects automatically
-•	Integrate with tools like Maven, Git, Selenium, Docker, etc.
-•	Save developer time and detect issues early
-🔹 What is Maven?
-Maven is a build automation and dependency management tool for Java-based projects.
-It uses a pom.xml file to define:
-•	Project structure
-•	Dependencies (like Selenium, JUnit)
-•	Build and test commands
-🔹 Jenkins + Maven Integration
-When Jenkins is connected with Maven:
-•	Jenkins automatically runs Maven commands (clean test)
-•	Maven handles dependencies and compiles Selenium test cases
-•	Jenkins displays build/test results in one dashboard
-🔹 Benefits
-✅ Automates testing after each build
-✅ Detects bugs early
-✅ Saves time through continuous integration
-✅ Shows easy reports (pass/fail status)
+Experiment 2 – Perform Exploratory Data Analysis on Healthcare Data
 ________________________________________
-✅ Expected Result
-After successful setup:
-•	Jenkins triggers Maven build automatically.
-•	Selenium test cases run in the background.
-•	“BUILD SUCCESS” is shown in Jenkins Console Output.
+🎯 AIM
+To perform Exploratory Data Analysis (EDA) on a healthcare dataset using Python libraries like Pandas, Matplotlib, and Seaborn.
+________________________________________
 
-Experiment 5: Docker Architecture, Container Lifecycle, and Custom Image
+🪜 Step 1: Open Command Prompt
+Press Windows + R → type cmd → Enter
 ________________________________________
+🪜 Step 2: Create a Project Folder
+In CMD, type:
+cd Desktop
+mkdir healthcare_eda
+cd healthcare_eda
+✅ You are now inside:
+C:\Users\Sonali\Desktop\healthcare_eda
+________________________________________
+🪜 Step 3: Create a Virtual Environment
+python -m venv venv
+This will create a folder called venv for isolated Python packages.
+________________________________________
+🪜 Step 4: Activate the Virtual Environment
+venv\Scripts\activate
+✅ You should now see:
+(venv) C:\Users\Sonali\Desktop\healthcare_eda>
+________________________________________
+🪜 Step 5: Install Required Libraries
+Now install the necessary packages:
+pip install pandas matplotlib seaborn notebook
+________________________________________
+🪜 Step 6: Add Your Dataset
+Download the dataset file (example: healthcare_dataset.csv) from kaggle
+and place it inside this folder:
+C:\Users\Sonali\Desktop\healthcare_eda\healthcare_dataset.csv
+________________________________________
+🪜 Step 7: Launch Jupyter Notebook
+Still inside CMD (with the venv activated), run:
+jupyter notebook
+💡 This command will open Jupyter Notebook in your default web browser.
+________________________________________
+🪜 Step 8: Create a New Notebook
+In the Jupyter tab that opened:
+1.	Click New → Python 3 (ipykernel)
+2.	A new notebook will open named Untitled.ipynb
+3.	Click on the name and rename it to healthcare_eda.ipynb
+________________________________________
+🪜 Step 9: Paste the Following Code
+Copy this entire code and paste it in the first Jupyter cell 👇
+# Step 1: Import libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Step 2: Load the dataset
+data = pd.read_csv("healthcare_dataset.csv")  # Ensure this file is in the same folder
+print("✅ Dataset loaded successfully!\n")
+
+# Step 3: Basic info
+print("🔹 Dataset Shape:", data.shape)
+print("\n🔹 Dataset Info:")
+print(data.info())
+print("\n🔹 First 5 rows:")
+print(data.head())
+
+# Step 4: Summary statistics
+print("\n🔹 Summary Statistics:")
+print(data.describe())
+
+# Step 5: Univariate Analysis
+plt.figure(figsize=(6,4))
+sns.histplot(data['Age'], bins=20, kde=True)
+plt.title("Age Distribution")
+plt.show()
+
+plt.figure(figsize=(6,4))
+sns.countplot(x='Gender', data=data)
+plt.title("Gender Count")
+plt.show()
+
+plt.figure(figsize=(6,4))
+sns.histplot(data['Billing Amount'], bins=20, kde=True)
+plt.title("Billing Amount Distribution")
+plt.show()
+
+# Step 6: Bivariate Analysis
+plt.figure(figsize=(6,4))
+sns.scatterplot(x='Age', y='Billing Amount', data=data)
+plt.title("Age vs Billing Amount")
+plt.show()
+
+# Step 7: Correlation Analysis
+numeric_data = data.select_dtypes(include=['number'])
+if not numeric_data.empty:
+    corr = numeric_data.corr()
+    plt.figure(figsize=(6,5))
+    sns.heatmap(corr, annot=True, cmap='coolwarm')
+    plt.title("Correlation Matrix")
+    plt.show()
+else:
+    print("No numeric columns available for correlation analysis.")
+
+# Step 8: Categorical Analysis
+plt.figure(figsize=(8,4))
+sns.countplot(x='Blood Type', data=data)
+plt.title("Blood Type Distribution")
+plt.show()
+
+plt.figure(figsize=(8,4))
+sns.countplot(x='Admission Type', data=data)
+plt.title("Admission Type Distribution")
+plt.show()
+
+# Step 9: Missing values check
+print("\n🔹 Missing Values:")
+print(data.isnull().sum())
+
+# Step 10: Quick Insights
+print("\n✅ Quick Insights:")
+print(f"Total Patients: {len(data)}")
+print(f"Unique Doctors: {data['Doctor'].nunique()}")
+print(f"Most Common Medical Condition: {data['Medical Condition'].mode()[0]}")
+print(f"Average Billing Amount: {data['Billing Amount'].mean():.2f}")
+________________________________________
+🪜 Step 10: Run All Cells
+From the Jupyter menu:
+•	Click Cell → Run All
+You’ll now see:
+•	Dataset info
+•	Summary statistics
+•	Histograms
+•	Scatter plots
+•	Correlation heatmap
+•	Missing value summary
+•	Quick insights
+________________________________________
+✅ Result / Conclusion
+From the EDA:
+•	We visualized patient age, gender, billing, and admission details
+•	Found relationships between variables (like Age vs Billing)
+•	Observed data patterns and missing values
+•	Understood dataset structure for further analysis
+
+
+Experiment 3: AI for Medical Diagnosis using CNN (with visualization of X-ray images, predictions, and performance plots)
+Here’s a complete, enhanced, and presentation-ready notebook script —
+it shows sample X-rays, predicted results, training graphs, and a confusion matrix 🔥
+________________________________________
+💻 Full Experiment Code — Advanced Version (Warning-Free & Visually Rich)
+💡 Make sure your dataset path is:
+C:\Users\Sonali\Desktop\medical_ai\chest_xray
+Then run the commands below in CMD before opening Jupyter:
+cd Desktop\medical_ai
+venv\Scripts\activate
+pip install tensorflow keras matplotlib seaborn numpy pandas scikit-learn jupyter
+jupyter notebook
+________________________________________
+Now paste this code into a new Jupyter Notebook cell-by-cell 👇
+# Step 1: Import Libraries
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Input
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+from sklearn.metrics import confusion_matrix, classification_report
+import os
+import random
+# Step 2: Define Data Paths
+train_dir = "chest_xray/train"
+val_dir = "chest_xray/val"
+test_dir = "chest_xray/test"
+# Step 3: Visualize Some Sample X-Ray Images
+plt.figure(figsize=(10, 6))
+categories = ['NORMAL', 'PNEUMONIA']
+for i, category in enumerate(categories):
+    folder = os.path.join(train_dir, category)
+    img_path = os.path.join(folder, random.choice(os.listdir(folder)))
+    img = load_img(img_path)
+    plt.subplot(1, 2, i + 1)
+    plt.imshow(img)
+    plt.title(category)
+    plt.axis('off')
+plt.suptitle("Sample X-Ray Images", fontsize=15)
+plt.show()
+# Step 4: Preprocess Data (Rescale & Augment)
+train_datagen = ImageDataGenerator(rescale=1./255,
+                                   rotation_range=20,
+                                   zoom_range=0.2,
+                                   horizontal_flip=True)
+
+val_datagen = ImageDataGenerator(rescale=1./255)
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+train_data = train_datagen.flow_from_directory(train_dir, target_size=(128, 128), batch_size=32, class_mode='binary')
+val_data = val_datagen.flow_from_directory(val_dir, target_size=(128, 128), batch_size=32, class_mode='binary')
+test_data = test_datagen.flow_from_directory(test_dir, target_size=(128, 128), batch_size=32, class_mode='binary', shuffle=False)
+# Step 5: Build a Deeper CNN Model (Warning-Free)
+model = Sequential([
+    Input(shape=(128, 128, 3)),
+    Conv2D(32, (3,3), activation='relu'),
+    MaxPooling2D(pool_size=(2,2)),
+    Conv2D(64, (3,3), activation='relu'),
+    MaxPooling2D(pool_size=(2,2)),
+    Conv2D(128, (3,3), activation='relu'),
+    MaxPooling2D(pool_size=(2,2)),
+    Flatten(),
+    Dense(256, activation='relu'),
+    Dropout(0.5),
+    Dense(1, activation='sigmoid')  # Binary output
+])
+# Step 6: Compile Model
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.summary()
+# Step 7: Train Model
+history = model.fit(train_data, validation_data=val_data, epochs=7)
+# Step 8: Plot Accuracy and Loss Graphs
+plt.figure(figsize=(12,5))
+plt.subplot(1,2,1)
+plt.plot(history.history['accuracy'], label='Training Accuracy')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+plt.title('Model Accuracy')
+plt.legend()
+
+plt.subplot(1,2,2)
+plt.plot(history.history['loss'], label='Training Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.title('Model Loss')
+plt.legend()
+plt.show()
+# Step 9: Evaluate on Test Data
+loss, acc = model.evaluate(test_data)
+print(f"✅ Test Accuracy: {acc*100:.2f}%")
+# Step 10: Confusion Matrix
+y_pred = model.predict(test_data)
+y_pred_classes = (y_pred > 0.5).astype("int32")
+
+cm = confusion_matrix(test_data.classes, y_pred_classes)
+plt.figure(figsize=(5,4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Confusion Matrix')
+plt.show()
+
+print("\nClassification Report:\n", classification_report(test_data.classes, y_pred_classes, target_names=['Normal', 'Pneumonia']))
+# Step 11: Visualize Predictions on Random Images
+plt.figure(figsize=(12,6))
+for i in range(6):
+    img_path = random.choice(test_data.filepaths)
+    img = load_img(img_path, target_size=(128,128))
+    img_arr = img_to_array(img)/255.0
+    prediction = model.predict(np.expand_dims(img_arr, axis=0))[0][0]
+    label = 'Pneumonia' if prediction > 0.5 else 'Normal'
+    
+    plt.subplot(2,3,i+1)
+    plt.imshow(img)
+    plt.title(f"Predicted: {label}")
+    plt.axis('off')
+plt.suptitle("Model Predictions on Test Images", fontsize=15)
+plt.show()
+________________________________________
+🧾 Conclusion
+•	The CNN successfully classified X-ray images as Normal or Pneumonia with high accuracy.
+•	Visualization of random predictions and confusion matrix demonstrates model reliability.
+•	This experiment shows how AI can assist doctors by automating medical diagnosis using deep learning
+
+
+
+Experiment 4: Heart Disease Prediction using Machine Learning
 🎯 Aim
-To understand Docker architecture and container lifecycle, install Docker, execute Docker commands to manage images and containers, create a custom Docker image using a Dockerfile, and upload it to Docker Hub.
+To develop a machine learning model that predicts the likelihood of heart disease based on patient health data.
 ________________________________________
-🧠 Step 1: Understand Docker Architecture
-Before starting, understand these 3 main components of Docker:
-Component	Description
-Docker Client	Command-line tool you use (docker run, docker ps, etc.).
-Docker Daemon (Server)	Background service that builds, runs, and manages containers.
-Docker Image	Template used to create containers (like an app snapshot).
-Docker Container	Running instance of an image (lightweight & isolated).
-Docker Hub	Cloud registry for storing and sharing Docker images.
-Architecture Flow:
-Docker Client → Docker Daemon → Containers & Images → Docker Hub (Registry)
+🪜 STEP-BY-STEP GUIDE (using CMD)
+🧩 Step 1: Create Project Folder
+Open Command Prompt and type:
+cd Desktop
+mkdir heart_disease_prediction
+cd heart_disease_prediction
 ________________________________________
-⚙️ Step 2: Install Docker
-On Windows:
-1.	Download Docker Desktop for Windows → https://www.docker.com/products/docker-desktop
-2.	Install it.
-3.	After installation, open Docker Desktop and ensure it says “Docker is running”.
-4.	Open PowerShell or Command Prompt and check:
-5.	docker --version
-6.	docker info
-✅ Output shows Docker client and server details.
+🧩 Step 2: Create Virtual Environment
+python -m venv venv
 ________________________________________
-🧱 Step 3: Basic Docker Commands
-Let’s get comfortable using Docker commands.
-Command	Purpose
-docker pull ubuntu	Download an image from Docker Hub
-docker images	List all images on your system
-docker run -it ubuntu	Run a container interactively
-docker ps	List running containers
-docker ps -a	List all containers (even stopped ones)
-docker stop <container_id>	Stop a running container
-docker rm <container_id>	Remove a container
-docker rmi <image_id>	Remove an image
-docker exec -it <container_id> bash	Access a running container
-Example:
-docker pull hello-world
-docker run hello-world
-✅ You’ll see a message that confirms Docker works correctly.
+🧩 Step 3: Activate Virtual Environment
+venv\Scripts\activate
+You’ll see (venv) at the beginning of your command line — means it’s active ✅
 ________________________________________
-🧩 Step 4: Create a Custom Docker Image
-Now we’ll make our own image using a Dockerfile.
-(a) Create a project folder
-mkdir MyDockerApp
-cd MyDockerApp
-(b) Create an index.html
-<!DOCTYPE html>
-<html>
-  <body>
-    <h2>Hello from My Custom Docker Image!</h2>
-  </body>
-</html>
-(c) Create a Dockerfile
-# Step 1: Use an official Nginx base image
-FROM nginx:latest
+🧩 Step 4: Install Required Libraries
+pip install numpy pandas matplotlib seaborn scikit-learn jupyter
+________________________________________
+🧩 Step 5: Download Dataset
+Download this dataset (CSV):
+📥 Heart Disease UCI Dataset on Kaggle
+After downloading, place the CSV file inside your project folder:
+C:\Users\Sonali\Desktop\heart_disease_prediction\heart.csv
+________________________________________
+🧩 Step 6: Launch Jupyter Notebook
+jupyter notebook
+A browser window will open — click New → Python 3 (ipykernel)
+Then copy the code below.
+________________________________________
+💻 Experiment 4 Code (Updated & Warning-Free)
+# Step 1: Import Libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
-# Step 2: Copy our web file into the container
-COPY index.html /usr/share/nginx/html/index.html
+# Step 2: Load the Dataset
+data = pd.read_csv("heart.csv")
+data.head()
+# Step 3: Basic Info
+data.shape
+data.info()
+data.describe()
+# Step 4: Check Missing Values
+data.isnull().sum()
+# Step 5: Visualize Target Distribution (Fixed Warning)
+sns.countplot(x='target', data=data, hue='target', palette='coolwarm', legend=False)
+plt.title("Heart Disease Distribution (0 = No Disease, 1 = Disease)")
+plt.show()
+# Step 6: Correlation Heatmap
+plt.figure(figsize=(10,6))
+sns.heatmap(data.corr(), annot=True, cmap='coolwarm')
+plt.title("Feature Correlation Heatmap")
+plt.show()
+# Step 7: Split Dataset into Features and Target
+X = data.drop('target', axis=1)
+y = data['target']
 
-# Step 3: Expose port 80
-EXPOSE 80
+# Step 8: Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Step 9: Feature Scaling
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+# Step 10: Train Logistic Regression Model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+# Step 11: Evaluate Model
+y_pred = model.predict(X_test)
+print("✅ Accuracy:", accuracy_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
 ________________________________________
-🏗️ Step 5: Build the Image
-In PowerShell (inside your project folder):
-docker build -t mydockerapp:v1 .
-✅ This builds a custom image named mydockerapp with version v1.
-Check it:
-docker images
+📈 Step 12: Result Interpretation
+If the accuracy is around 80–90%, your model is working correctly.
+You can discuss how features like cholesterol, age, and blood pressure impact prediction.
 ________________________________________
-▶️ Step 6: Run the Container
-docker run -d -p 8080:80 mydockerapp:v1
-✅ Open browser → http://localhost:8080
-You’ll see your custom HTML message.
-Check running containers:
-docker ps
-Stop it later:
-docker stop <container_id>
-________________________________________
-☁️ Step 7: Push Image to Docker Hub
-(a) Create a Docker Hub account
-Go to → https://hub.docker.com
-(b) Login via terminal
-docker login
-Enter your Docker Hub username and password.
-(c) Tag your image (Docker Hub requires username prefix)
-docker tag mydockerapp:v1 your_dockerhub_username/mydockerapp:v1
-(d) Push it
-docker push your_dockerhub_username/mydockerapp:v1
-✅ Go to Docker Hub → You’ll see your uploaded image.
-________________________________________
-🔁 Step 8: Container Lifecycle Summary
-Stage	Command Example	Description
-Create	docker create	Defines a container from an image
-Start	docker start	Starts a stopped container
-Run	docker run	Creates + starts together
-Pause	docker pause	Temporarily suspends
-Stop	docker stop	Gracefully stops
-Restart	docker restart	Restarts container
-Remove	docker rm	Deletes container
-________________________________________
-🧾 Step 9: Conclusion
-✅ Docker simplifies application deployment by packaging everything into lightweight containers.
-✅ You learned to manage Docker images, run containers, and create custom images using Dockerfiles.
-✅ You successfully uploaded a Docker image to Docker Hub for sharing or reuse.
+📋 Conclusion
+This experiment successfully demonstrated how logistic regression can predict heart disease using medical data. Data preprocessing, visualization, and model evaluation showed that ML can help doctors make data-driven diagnoses.
 
 
-Exp 6
-Experiment: Use Docker to Run Containers of Different Applications & Operating Systems
-________________________________________
-✅ Step 1 — Pull an OS Image (Ubuntu)
-docker pull ubuntu
-docker run -it ubuntu
-Inside container test command:
-ls
-exit
-________________________________________
-✅ Step 2 — Run an Alpine OS Container (another lightweight OS)
-docker pull alpine
-docker run -it alpine
-Test:
-uname -a
-exit
-________________________________________
-✅ Step 3 — Run a Web Application (Nginx Web Server)
-docker pull nginx
-docker run -d -p 8080:80 nginx
-✅ Open browser → http://localhost:8080
-You should see the Nginx welcome page.
-Check running containers:
-docker ps
-Stop container after testing:
-docker stop <container_id>
-________________________________________
-✅ Step 4 — Run a Database Application (MySQL)
-docker pull mysql
-docker run -d --name mydb -e MYSQL_ROOT_PASSWORD=root mysql
-Check container logs (optional):
-docker logs mydb
-________________________________________
-✅ Step 5 — List Containers & Images
-docker ps -a
-docker images
-________________________________________
-📌 That’s it!
-You have now used Docker to run:
-✅ 2 different operating systems (Ubuntu, Alpine)
-✅ 2 different applications (Nginx server & MySQL database)
-This completes your experiment ✅
-Related Theory – Docker
-1. Introduction
-Docker is an open-source tool that allows developers to build, package, and run applications inside containers.
-A container includes everything an app needs — code, libraries, and dependencies — so it runs the same everywhere.
-________________________________________
-2. Why Use Docker
-•	Works the same on any system (no “it works on my machine” issue).
-•	Faster and lighter than virtual machines.
-•	Easy to move and scale applications.
-•	Saves time in deployment and testing.
-________________________________________
-3. Docker Architecture
-Docker follows a client–server model:
-•	Docker Client: Used to run commands like docker run or docker build.
-•	Docker Daemon (Server): Runs in the background and does the actual work (building, running containers).
-•	Docker Hub/Registry: Stores Docker images online.
-________________________________________
-4. Important Terms
-Term	Meaning
-Image	Blueprint or template for creating containers.
-Container	A running instance of an image (the actual app).
-Dockerfile	Instructions to create your own image.
-Docker Hub	Cloud storage for images.
-Volume	Used to save data inside containers permanently.
-________________________________________
-5. Container Lifecycle
-1.	Create → docker create <image>
-2.	Start → docker start <id>
-3.	Run → docker run <image>
-4.	Stop → docker stop <id>
-5.	Remove → docker rm <id>
-________________________________________
-6. Common Docker Commands
-Command	Description
-docker --version	Check Docker version
-docker pull ubuntu	Download an image
-docker images	Show downloaded images
-docker run hello-world	Run a test container
-docker ps -a	List all containers
-docker stop <id>	Stop container
-docker rm <id>	Delete container
-docker build -t myimage .	Build custom image
-docker push username/myimage	Upload to Docker Hub
-________________________________________
-7. Advantages
-✅ Lightweight and fast
-✅ Same setup on all systems
-✅ Easy to deploy and test
-✅ Saves time and resources
-________________________________________
-8. Conclusion
-Docker makes application deployment simple and reliable.
-It allows you to package and run apps anywhere, forming an important part of DevOps and CI/CD pipelines.
-
-
-Experiment 7: Application and Code Security Testing using Snyk
+pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.4/en_core_sci_sm-0.5.4.tar.gz
+Experiment 6: Predict Disease Risk from Patient Data
 🎯 Aim:
-To perform application and code security testing using Snyk to identify and fix vulnerabilities in project dependencies and source code.
-________________________________________
-⚙️ Requirements:
-•	Windows or Linux system
-•	Node.js installed
-•	Internet connection
-•	A free Snyk account
-________________________________________
-📖 Theory (Easy to Understand):
-Snyk is a developer-focused security tool used to detect and fix vulnerabilities in open-source dependencies, configuration files, and source code.
-It scans files like package.json or requirements.txt, compares dependencies with its vulnerability database, and provides fixes or upgrade suggestions.
-Key Features:
-•	Scans open-source libraries and dependencies
-•	Suggests secure versions
-•	Integrates into development workflows (CI/CD, GitHub, etc.)
-•	Helps developers fix security issues early
-________________________________________
-🪜 Procedure (Step-by-Step)
-Step 1: Create a Free Snyk Account
-1.	Visit https://snyk.io
-2.	Sign up with GitHub, Google, or Email
-3.	After login, you’ll see the Snyk dashboard
-________________________________________
-Step 2: Install Snyk CLI
-For Windows:
-npm install -g snyk
-For Linux:
-sudo npm install -g snyk
-Check version:
-snyk --version
-________________________________________
-Step 3: Authenticate Snyk
-Connect your terminal with your Snyk account:
-snyk auth
-A browser window opens — log in and allow access.
-________________________________________
-Step 4: Create a Sample Project
-Example using Node.js:
-mkdir snyk-demo
-cd snyk-demo
-npm init -y
-npm install express
-________________________________________
-Step 5: Scan the Project
-Run:
-snyk test
-✅ This command scans the dependencies and lists all vulnerabilities (Critical, High, Medium, Low) along with recommended fixes.
-________________________________________
-Step 6: Fix the Vulnerabilities
-Run:
-snyk wizard
-This interactive wizard guides you through upgrading or patching insecure packages.
-________________________________________
-Step 7: Monitor the Project
-To keep track of vulnerabilities:
-snyk monitor
-You can view the detailed report on your Snyk Dashboard.
-________________________________________
-💻 Program and Output:
-Commands Executed:
-npm install -g snyk
-snyk auth
-snyk test
-snyk wizard
-snyk monitor
-Expected Output:
-•	List of detected vulnerabilities
-•	Severity levels (Critical, High, Medium, Low)
-•	Suggested package updates or patches
-•	Confirmation message after applying fixes
-________________________________________
-🧩 Result:
-Snyk successfully scanned the application and identified vulnerabilities in dependencies.
-It provided detailed recommendations and helped fix insecure packages.
-________________________________________
-✅ Conclusion:
-Using Snyk, developers can automatically detect, monitor, and fix security vulnerabilities in code and dependencies, improving the overall security of applications.
+To train and evaluate Machine Learning models to predict disease risk using structured patient data.
+Step 1: Create project folder
+cd C:\Users\Sonali\Desktop
+mkdir medical_ai_exp6
+cd medical_ai_exp6
+Step 2: Create and activate virtual environment
+python -m venv venv
+venv\Scripts\activate
+Step 3: Install necessary libraries
+pip install numpy pandas matplotlib seaborn scikit-learn ipython notebook
+Step 4: Launch Jupyter Notebook
+jupyter notebook
+Step 5: In Jupyter Notebook
+1.	Click New → Python 3 (ipykernel)
+2.	Save the notebook as:
+3.	disease_risk_prediction.ipynb
+4.	Copy-paste this full code in the first cell 👇
+5.	Python Code: disease_risk_prediction.ipynb
+# Experiment 6: Predict Disease Risk from Patient Data
+# CO No.: CO2
+# Learning Outcome: Train and evaluate ML models to predict disease risks using structured patient data
 
-Experiment 8: Implement Static Application Security Testing (SAST) using SonarQube
-________________________________________
-🎯 Aim:
-To perform Static Application Security Testing (SAST) using SonarQube to identify code quality issues, bugs, and security vulnerabilities in a software project.
-________________________________________
-⚙️ Requirements:
-•	Windows or Linux operating system
-•	Java JDK (version 11 or above)
-•	SonarQube and Sonar Scanner installed
-•	A sample code project (e.g., Java, Python, Node.js)
-•	Internet connection
-________________________________________
-📖 Theory (Easy and Precise):
-Static Application Security Testing (SAST) analyzes source code without executing it.
-It helps detect security vulnerabilities, bugs, and code smells early in the development process.
-SonarQube is an open-source platform that automates SAST. It:
-•	Scans code for quality and security issues.
-•	Detects vulnerabilities (like SQL Injection, XSS, Hardcoded Secrets).
-•	Provides detailed reports with remediation suggestions.
-•	Integrates with CI/CD tools and IDEs.
-Sonar Scanner is the command-line tool used to send your code from your local machine to SonarQube for analysis.
-________________________________________
-🪜 Procedure (Step-by-Step):
-Step 1: Install Java
-Check if Java is installed:
-java -version
-If not, install JDK 17 and set JAVA_HOME.
-________________________________________
-Step 2: Download and Install SonarQube
-1.	Go to https://www.sonarqube.org/downloads/
-2.	Download SonarQube Community Edition (latest LTS).
-3.	Extract the ZIP file (e.g., C:\SonarQube).
-________________________________________
-Step 3: Start SonarQube Server
-Go to the SonarQube directory → bin → choose your OS folder → run:
-StartSonar.bat
-Wait a few minutes until the server starts.
-Now open your browser and go to:
-http://localhost:9000
-Login with default credentials:
-Username: admin
-Password: admin
-(Change password when prompted.)
-________________________________________
-Step 4: Create a Project in SonarQube
-1.	Click “Create Project” → “Manually”.
-2.	Enter project name → click “Set Up”.
-3.	Choose “Locally” option.
-4.	Copy the Sonar Scanner command displayed on screen (you’ll use it later).
-________________________________________
-Step 5: Install Sonar Scanner
-1.	Download from https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/scanners/sonarscanner/
-2.	Extract the file (e.g., C:\sonar-scanner).
-3.	Add its bin folder to your system PATH.
-Verify installation:
-sonar-scanner -v
-________________________________________
-Step 6: Create a Sample Project
-Example (Java):
-mkdir sonar-demo
-cd sonar-demo
-Add a simple Java file, e.g., App.java:
-public class App {
-    public static void main(String[] args) {
-        System.out.println("Hello SonarQube!");
-    }
+# Import Libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+
+# 1️⃣ Generate Sample Patient Data
+np.random.seed(42)
+n = 200
+
+data = {
+    'Age': np.random.randint(20, 80, n),
+    'BMI': np.random.uniform(18, 35, n),
+    'BloodPressure': np.random.randint(90, 160, n),
+    'Cholesterol': np.random.randint(150, 300, n),
+    'Glucose': np.random.randint(70, 200, n),
+    'Smoker': np.random.choice([0, 1], n),
+    'ExerciseFreq': np.random.randint(0, 7, n),
+    'DiseaseRisk': np.random.choice([0, 1], n, p=[0.65, 0.35])
 }
+
+df = pd.DataFrame(data)
+print("Sample of Patient Data:")
+print(df.head())
+
+# 2️⃣ Data Visualization
+plt.figure(figsize=(8,5))
+sns.countplot(y='DiseaseRisk', data=df, palette='coolwarm', hue='DiseaseRisk', legend=False)
+plt.title("Distribution of Disease Risk")
+plt.show()
+
+sns.pairplot(df[['Age', 'BMI', 'BloodPressure', 'Cholesterol', 'Glucose']], diag_kind='kde')
+plt.suptitle("Feature Relationships", y=1.02)
+plt.show()
+
+# 3️⃣ Data Preprocessing
+X = df.drop('DiseaseRisk', axis=1)
+y = df['DiseaseRisk']
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# 4️⃣ Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# 5️⃣ Model Training
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+# 6️⃣ Model Evaluation
+y_pred = model.predict(X_test)
+
+print("\n🔹 Classification Report:\n", classification_report(y_test, y_pred))
+print("🔹 Accuracy Score:", accuracy_score(y_test, y_pred))
+
+# 7️⃣ Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot=True, fmt='d', cmap='coolwarm', xticklabels=['No Risk', 'Risk'], yticklabels=['No Risk', 'Risk'])
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.show()
+
+# 8️⃣ Feature Importance
+feat_importance = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
+plt.figure(figsize=(8,5))
+sns.barplot(x=feat_importance, y=feat_importance.index, palette='viridis')
+plt.title("Feature Importance in Disease Risk Prediction")
+plt.show()
+
+# 9️⃣ Predict for a new patient
+new_patient = pd.DataFrame({
+    'Age': [55],
+    'BMI': [28.5],
+    'BloodPressure': [145],
+    'Cholesterol': [250],
+    'Glucose': [180],
+    'Smoker': [1],
+    'ExerciseFreq': [1]
+})
+
+new_patient_scaled = scaler.transform(new_patient)
+prediction = model.predict(new_patient_scaled)[0]
+print("\n🩺 Predicted Disease Risk for New Patient:", "High Risk" if prediction == 1 else "Low Risk")
+Expected Outputs
+When you run all cells:
+1.	🧍‍♀️ Table of sample patient data
+2.	📊 Countplot of disease risk distribution
+3.	🔗 Pairplot of data relationships
+4.	🧮 Confusion matrix heatmap
+5.	⚙️ Feature importance graph
+6.	🩺 Prediction result for new patient → “High Risk” or “Low Risk”
+7.	📈 Model accuracy and classification report
+
+
+🧪 Experiment 7: Medical Reviews Analysis from Social Media Data
+🎯 Aim
+To analyze and classify sentiments (positive, negative, neutral) from medical-related social media data using Natural Language Processing (NLP).
+📘 Learning Outcome
+Analyze patient reviews and sentiments from social media platforms for public health insights.
 ________________________________________
-Step 7: Run Sonar Scanner
-Use the command generated from your SonarQube dashboard, for example:
-sonar-scanner \
-  -Dsonar.projectKey=sonar-demo \
-  -Dsonar.sources=. \
-  -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=<your_generated_token>
+⚙️ STEPS WITH CMD COMMANDS
+1. Create a project folder
+cd Desktop
+mkdir medical_reviews_exp7
+cd medical_reviews_exp7
 ________________________________________
-Step 8: View Results
-•	Open http://localhost:9000
-•	Go to your project dashboard.
-•	You’ll see a report showing:
-o	Bugs
-o	Vulnerabilities
-o	Code smells
-o	Security hotspots
-o	Coverage and maintainability scores
+2. Create and activate a virtual environment
+python -m venv venv
+venv\Scripts\activate
 ________________________________________
-💻 Program and Output:
-Commands Executed:
-java -version
-StartSonar.bat
-sonar-scanner -v
-sonar-scanner -Dsonar.projectKey=sonar-demo -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000 -Dsonar.login=<token>
-Expected Output:
-•	“Analysis successful” message in terminal
-•	SonarQube dashboard displays project scan results with security ratings and issues detected
+3. Install dependencies
+pip install pandas numpy matplotlib seaborn nltk scikit-learn jupyter
 ________________________________________
-🧩 Result:
-SonarQube successfully analyzed the source code and detected vulnerabilities, code smells, and bugs, helping improve the overall security and quality of the project.
+4. Start Jupyter Notebook
+jupyter notebook
+➡️ Then create a new notebook named Medical_Reviews_Analysis.ipynb
 ________________________________________
-✅ Conclusion:
-Static Application Security Testing using SonarQube enables developers to identify and fix security flaws early in the software development lifecycle, enhancing code reliability and minimizing risks.
+5. Paste the following Python code in the notebook
+# Experiment 7: Medical Reviews Analysis from Social Media Data
+# CO No.: CO3
+
+# Step 1: Import Libraries
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import nltk
+from nltk.corpus import stopwords
+from nltk.sentiment import SentimentIntensityAnalyzer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Step 2: Download NLTK Resources
+nltk.download('vader_lexicon')
+nltk.download('stopwords')
+
+# Step 3: Sample Dataset (simulating social media reviews)
+data = {
+    'Review': [
+        'The hospital staff was very caring and professional!',
+        'I had to wait for hours, very poor service.',
+        'Doctor explained everything clearly, great experience.',
+        'The medicines were too costly and ineffective.',
+        'Excellent facilities, clean rooms, and friendly nurses.',
+        'Worst hospital ever! Never coming back.',
+        'Decent experience, but could improve timings.',
+        'The doctor was rude and unhelpful.',
+        'Good care and quick recovery, thank you!',
+        'Not bad, but billing process was confusing.'
+    ]
+}
+
+df = pd.DataFrame(data)
+print("Sample Data:\n", df.head())
+
+# Step 4: Sentiment Analysis using VADER
+sia = SentimentIntensityAnalyzer()
+df['Sentiment_Score'] = df['Review'].apply(lambda x: sia.polarity_scores(x)['compound'])
+df['Sentiment_Label'] = df['Sentiment_Score'].apply(
+    lambda x: 'Positive' if x > 0.05 else ('Negative' if x < -0.05 else 'Neutral')
+)
+
+# Step 5: Display results
+print("\nSentiment Analysis Results:\n")
+print(df)
+
+# Step 6: Visualize sentiment distribution
+plt.figure(figsize=(6,4))
+sns.countplot(y='Sentiment_Label', data=df, palette='coolwarm')
+plt.title("Sentiment Distribution in Medical Reviews")
+plt.show()
+
+# Step 7: Display summary
+print("\nSummary:")
+print(df['Sentiment_Label'].value_counts())
+________________________________________
+✅ 6. Run all cells
+You’ll see:
+•	Reviews and their sentiment scores
+•	Visualization of sentiment distribution
+•	Summary of positive, negative, and neutral reviews
+________________________________________
+🧩 7. Theory (for report)
+Sentiment analysis helps in understanding public opinion about healthcare services by classifying text as positive, negative, or neutral.
+It uses Natural Language Processing (NLP) and pretrained models like VADER to interpret the polarity of text based on emotion-oriented keywords.
+________________________________________
+📜 8. Conclusion
+This experiment successfully analyzed patient reviews and classified their sentiments, providing valuable insights into patient satisfaction and public health perception.
+
+
+Experiment 8: Explainable AI in Healthcare
+Aim
+To interpret AI models and visualize their predictions for transparency in healthcare using SHAP.
+Learning Outcome
+•	Understand how ML models make decisions.
+•	Visualize feature importance for individual predictions and globally.
+•	Ensure model transparency and accountability in healthcare predictions.
+________________________________________
+Step 1: Install Required Libraries
+Run in CMD (inside your virtual environment):
+pip install numpy pandas matplotlib seaborn scikit-learn shap jupyter
+________________________________________
+Step 2: Jupyter Notebook Code
+# Step 1: Import Libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import shap
+
+# Step 2: Load Dataset
+# You can download Heart Disease dataset from Kaggle
+data = pd.read_csv("heart.csv")
+print("✅ Dataset Loaded Successfully!\n")
+print(data.head())
+
+# Step 3: Data Preprocessing
+X = data.drop('target', axis=1)
+y = data['target']
+
+# Feature Scaling
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# Step 4: Train Model
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+# Step 5: Evaluate Model
+y_pred = model.predict(X_test)
+print("✅ Accuracy:", accuracy_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+# Step 6: Explainable AI with SHAP
+explainer = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(X_test)
+
+# Step 7: Global Feature Importance
+shap.summary_plot(shap_values[1], X_test, feature_names=X.columns, plot_type="bar")
+
+# Step 8: SHAP Summary Plot (Detailed)
+shap.summary_plot(shap_values[1], X_test, feature_names=X.columns)
+
+# Step 9: SHAP Force Plot for an Individual Prediction
+# Pick a test instance
+i = 0
+shap.initjs()
+shap.force_plot(explainer.expected_value[1], shap_values[1][i], X_test[i], feature_names=X.columns)
+________________________________________
+Step 3: Expected Outputs
+1.	Accuracy of your Random Forest model (~85–90%).
+2.	Confusion matrix showing predicted vs actual.
+3.	Classification report with precision, recall, F1-score.
+4.	SHAP summary plot (bar) → shows most important features globally.
+5.	SHAP summary plot (dot) → detailed impact of each feature on predictions.
+6.	SHAP force plot → interprets a single patient prediction, showing which features pushed the prediction higher or lower.
+________________________________________
+Step 4: Key Observations
+•	Features like cholesterol, age, BP, max heart rate usually contribute most to heart disease prediction.
+•	SHAP plots make the model decisions transparent, helping doctors trust AI recommendations.
+________________________________________
+Step 5: Important Viva Questions
+Question	Answer
+What is Explainable AI?	Techniques that make ML model predictions understandable to humans.
+Why use SHAP?	SHAP (SHapley Additive exPlanations) quantifies feature contributions for predictions.
+What is a force plot?	Visualizes how features push a specific prediction toward positive or negative.
+Difference between global and local interpretability?	Global = overall feature importance; Local = single prediction explanation.
+Why is explainable AI important in healthcare?	Ensures transparency, trust, and accountability for AI-based decisions affecting patient care.
+
+
+VIVA THEORY 
+Experiment 1: Collect, Clean, Integrate, and Transform Healthcare Data (Diabetes Dataset)
+Aim:
+To collect, clean, integrate, and transform healthcare data for AI/ML models.
+Theory:
+Healthcare data often contains missing values, invalid entries (e.g., 0s in BMI, glucose), duplicates, or inconsistencies. Cleaning ensures accuracy; integration combines patient demographics or other sources; transformation (scaling, encoding, feature creation) makes the data suitable for ML algorithms. Preprocessing improves model performance and reliability.
+Explanation:
+•	Replace invalid/missing values → median imputation.
+•	Remove duplicates and assign unique PatientIDs.
+•	Merge demographic data (city, gender) → integration.
+•	Feature engineering → BMI categories.
+•	Scale numeric features → StandardScaler.
+Learning Outcome:
+Prepared a clean, consistent, and structured dataset ready for AI/ML modeling.
+________________________________________
+Experiment 2: Exploratory Data Analysis (EDA) on Healthcare Data
+Aim:
+To explore healthcare datasets and identify patterns, relationships, and anomalies.
+Theory:
+EDA helps understand dataset structure, variable distributions, correlations, and missing values. Visualizations like histograms, scatter plots, heatmaps, and countplots highlight patterns that guide feature selection and preprocessing.
+Explanation:
+•	Univariate analysis → distributions of age, gender, billing.
+•	Bivariate analysis → relationships between features (e.g., age vs billing).
+•	Correlation analysis → numeric feature interdependencies.
+•	Categorical analysis → distribution of categories (blood type, admission type).
+Learning Outcome:
+Ability to summarize, visualize, and interpret healthcare data for insights.
+________________________________________
+Experiment 3: AI for Medical Diagnosis Using CNN (X-Ray Images)
+Aim:
+To classify medical X-ray images (Normal/Pneumonia) using CNNs and visualize predictions.
+Theory:
+Convolutional Neural Networks (CNNs) automatically extract spatial features from images. Training on labeled X-rays allows the model to detect patterns associated with diseases. Visualization of training metrics and predictions helps evaluate model performance.
+Explanation:
+•	Preprocess images → rescaling & augmentation.
+•	Build CNN → convolution + pooling + dense layers.
+•	Train model → monitor accuracy/loss curves.
+•	Evaluate → confusion matrix, classification report.
+•	Visualize predictions → compare model output with actual images.
+Learning Outcome:
+Understand deep learning applications in medical imaging and evaluate model predictions visually.
+________________________________________
+Experiment 4: Heart Disease Prediction Using Machine Learning
+Aim:
+Predict the likelihood of heart disease using patient health data and ML algorithms.
+Theory:
+Structured healthcare data (age, cholesterol, BP, etc.) can be used to train ML models like Logistic Regression or Random Forest. Feature scaling and train-test split ensure balanced model training. Visualizations like heatmaps and target distribution help understand variable impact.
+Explanation:
+•	Check missing values, visualize target distribution.
+•	Correlation heatmap → identify key predictors.
+•	Train logistic regression model → evaluate using accuracy, confusion matrix, classification report.
+Learning Outcome:
+Predict disease risk accurately and understand feature importance in heart disease diagnosis.
+________________________________________
+Experiment 5: Natural Language Processing on Medical Data (your reference for ScispaCy issue)
+Aim:
+Extract meaningful information from medical text using NLP tools.
+Theory:
+Medical text contains complex terminology. NLP libraries like SpaCy, ScispaCy, or Transformers can perform Named Entity Recognition (NER) to identify diseases, drugs, or symptoms. Preprocessing (tokenization, cleaning) is critical for accuracy.
+Explanation:
+•	Preprocess text → lowercase, remove stopwords.
+•	Apply NER → extract entities like diseases or medications.
+•	Analyze results → frequency counts, visualization.
+Learning Outcome:
+Extract structured information from unstructured medical text to aid healthcare analytics.
+________________________________________
+Experiment 6: Predict Disease Risk from Patient Data
+Aim:
+Train ML models to predict disease risk using structured patient data.
+Theory:
+Random Forest or other classifiers can model complex relationships between health metrics (age, BMI, BP, cholesterol, etc.) and disease risk. Feature scaling, train-test split, and evaluation metrics like accuracy and confusion matrix ensure model reliability.
+Explanation:
+•	Generate synthetic patient dataset (or use real data).
+•	Train Random Forest classifier → predict disease risk.
+•	Evaluate → accuracy, confusion matrix, feature importance.
+•	Predict new patient outcomes → decision support.
+Learning Outcome:
+Ability to train ML models and predict disease risk with explainable results.
+________________________________________
+Experiment 7: Medical Reviews Analysis from Social Media
+Aim:
+Analyze patient reviews from social media to classify sentiments (positive/negative/neutral).
+Theory:
+Sentiment analysis uses NLP to interpret emotions in text. Pretrained models like VADER assign polarity scores based on language. This helps healthcare organizations monitor patient satisfaction and public perception.
+Explanation:
+•	Load text reviews → preprocess.
+•	Apply VADER sentiment analysis → assign compound scores.
+•	Categorize → Positive, Negative, Neutral.
+•	Visualize distribution → countplots for insights.
+Learning Outcome:
+Extract insights from unstructured social media text for healthcare evaluation.
+________________________________________
+Experiment 8: Explainable AI in Healthcare (SHAP)
+Aim:
+Interpret AI models and visualize predictions for transparency in healthcare using SHAP.
+Theory:
+ML models can be black-box. SHAP (SHapley Additive exPlanations) quantifies each feature’s contribution to predictions. Global explanation shows overall feature importance; local explanation shows impact on individual predictions. This builds trust in AI-driven decisions.
+Explanation:
+•	Train Random Forest on structured data.
+•	Evaluate model → accuracy, confusion matrix, classification report.
+•	Apply SHAP → global (summary plot) and local (force plot) explanations.
+•	Key features → age, cholesterol, BP often influence heart disease prediction.
+Learning Outcome:
+Understand model decision-making and provide transparent predictions for healthcare applications.
+________________________________________
+✅ Summary for Viva Preparation:
+•	Experiments 1–2: Focus on data preprocessing & exploration.
+•	Experiments 3–4: Focus on ML/DL model building & evaluation.
+•	Experiments 6–8: Focus on risk prediction, NLP, and Explainable AI.
+•	Key Concepts: Missing value imputation, scaling, train-test split, model metrics, SHAP for transparency, CNNs for image classification, VADER for sentiment analysis.
 
